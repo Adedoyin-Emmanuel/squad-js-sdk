@@ -35,8 +35,25 @@ export default class SquadPayment extends SquadBaseClient {
     if (!transactionData || typeof transactionData !== "object")
       throw new Error("Invalid transaction data!");
 
+    const dataToSend = {
+      amount: transactionData.amount,
+      email: transactionData.email,
+      initiate_type: transactionData.initiateType,
+      currency: transactionData.currency,
+      transaction_ref: transactionData.transactionRef,
+      customer_name: transactionData.customerName,
+      callback_url: transactionData.callbackUrl,
+      payment_channels: transactionData.paymentChannels,
+      metadata: transactionData.metadata,
+      pass_charge: transactionData.passCharge,
+      sub_merchant_id: transactionData.subMerchantId,
+    };
+
     try {
-      // const squadResponse = await super().
+      const response = await this.Axios.post(
+        "/transaction/initiate",
+        dataToSend
+      );
     } catch (error: any) {
       throw Error(error);
     }
