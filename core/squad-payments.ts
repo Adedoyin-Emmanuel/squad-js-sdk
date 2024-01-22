@@ -126,7 +126,7 @@ export default class SquadPayment extends SquadBaseClient {
    * @param {string} transactionRef - The unique transaction reference attached to the transaction.
    */
   public async verifyTransaction(
-    transactionRef: VerifyTransactionProps
+    transactionRef: VerifyTransactionProps | string
   ): Promise<VerifyTransactionResponseProps> {
     if (!transactionRef) throw new Error("Transaction reference is required!");
 

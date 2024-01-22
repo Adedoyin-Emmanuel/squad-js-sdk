@@ -16,17 +16,12 @@ const args = {
 
 const response = squad.initiatePayment(args, true);
 
-response.then((data) => {
+response.then(async (data) => {
   console.log(data.data);
-});
 
-const args2 = {
-  amount: 10000,
-  tokenId: "tJlYMKcwPd",
-};
+  //verify a transaction after successful payment
+  const transactionRef: any = data.data?.transaction_ref as string;
+  const response = await squad.verifyTransaction(transactionRef);
 
-const response2 = squad.chargeCard(args2);
-
-response2.then((data) => {
-  console.log(data);
+  console.log(response);
 });
