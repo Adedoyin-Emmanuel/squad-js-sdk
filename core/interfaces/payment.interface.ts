@@ -1,3 +1,5 @@
+import type { BaseResponseProps } from "./base-response";
+
 export interface InitiatePaymentProps {
   amount: number;
   email: string;
@@ -10,13 +12,6 @@ export interface InitiatePaymentProps {
   metadata?: object;
   passCharge?: boolean;
   subMerchantId?: string;
-}
-
-export interface BaseResponseProps {
-  status: number;
-  success: boolean;
-  message: string;
-  data?: {};
 }
 
 export interface InitiatePaymentResponseProps extends BaseResponseProps {
