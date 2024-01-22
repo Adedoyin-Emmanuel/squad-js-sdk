@@ -4,6 +4,8 @@ import type {
   InitiatePaymentResponseProps,
   ChargeCardProps,
   ChargeCardResponseProps,
+  VerifyTransactionProps,
+  VerifyTransactionResponseProps,
 } from "./interfaces/payment.interface";
 
 /**
@@ -46,7 +48,7 @@ export default class SquadPayment extends SquadBaseClient {
    * @param {boolean} [transactionData.passCharge] This takes two possible values: True or False. It is set to False by default. When set to True, the charges on the transaction is computed and passed on to the customer(payer). But when set to False, the charge is passed to the merchant and will be deducted from the amount to be settled to the merchant.
    * @param {string} [transactionData.subMerchantId] This is the ID of a merchant that was created by an aggregator which allows the aggregator initiate a transaction on behalf of the submerchant. This parameter is an optional field that is passed only by a registered aggregator.
    * @param {boolean} [tokenizeCard] This is to tokenize a card. Adding this to the initiate payload when calling the initiatePayment method,  will automatically be tokenize the card. The unique token code will automatically be added to the webhook notification that will be received after payment. @see https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment
-   * @returns {string} The URL for the payment modal.
+   * @returns {object} The response from the Squad API
    * @throws {Error} Throws an error if validation fails.
    */
 
@@ -84,6 +86,15 @@ export default class SquadPayment extends SquadBaseClient {
     }
   }
 
+  /**
+   * @summary This allows you charge a card using the token generated during the initiate transaction which was sent via webhook
+   * @function
+   * @param transactionData
+   * @param {number} transactionData.amount - The amount to charge
+   * @param {string} transactionData.tokenId - The unique tokenization code for each card transaction and it is returned via the webhook for first charge on the card.
+   * @param {string} [transaction.transactionRef] - Optional The transaction reference string. . If you do not pass this parameter, Squad will generate a unique reference for you.
+   * @returns {object} The Reponse from Squad API
+   */
   public async chargeCard(
     transactionData: ChargeCardProps
   ): Promise<ChargeCardResponseProps> {
@@ -100,6 +111,28 @@ export default class SquadPayment extends SquadBaseClient {
       const squadResponse = await this.Axios.post(
         `${this.basePaymentUrl}/charge_card`,
         dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This is method allows you to query the status of a particular
+   * transaction using the unique transaction reference attached to the transaction.
+   * @function
+   * @param {string} transactionRef - The unique transaction reference attached to the transaction.
+   */
+  public async verifyTransaction(
+    transactionRef: VerifyTransactionProps
+  ): Promise<VerifyTransactionResponseProps> {
+    if (!transactionRef) throw new Error("Transaction reference is required!");
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.basePaymentUrl}/verify/${transactionRef}`
       );
 
       return squadResponse.data;
