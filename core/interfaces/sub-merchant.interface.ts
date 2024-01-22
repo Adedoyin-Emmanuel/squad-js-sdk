@@ -8,7 +8,7 @@ export interface SubMerchantProps {
   bankName: string;
 }
 
-export interface SubMerchantResponseProps {
+export interface SubMerchantResponseProps extends BaseResponseProps {
   status: number;
   success: true;
   message: string;
