@@ -2,7 +2,7 @@ export interface InitiatePaymentProps {
   amount: number;
   email: string;
   initiateType: string;
-  currency: "NGN" | "USD";
+  currency: string | "NGN" | "USD";
   transactionRef?: string;
   customerName?: string;
   callbackUrl?: string;
@@ -10,4 +10,27 @@ export interface InitiatePaymentProps {
   metadata?: object;
   passCharge?: boolean;
   subMerchantId?: string;
+}
+
+export interface InitiatePaymentResponseProps {
+  status: number;
+  success: boolean;
+  message: string;
+  data?: {
+    merchantInfo?: {
+      merchant_logo: string;
+      merchant_id: string;
+    };
+
+    currency: string;
+    recurring: {
+      type: number;
+    };
+
+    is_recurring: boolean;
+    callback_url: string;
+    transaction_ref: string;
+    authorized_channels: string[];
+    checkout_url: string;
+  };
 }

@@ -23,11 +23,7 @@ export default abstract class SquadBaseClient {
    * @param {string} privateKey - Squad private key
    * @param {string} environment - The environment to use for the client. If not specified, defaults to "development".
    */
-  constructor(
-    publicKey: string,
-    privateKey: string,
-    environment: "production" | "development"
-  ) {
+  constructor(publicKey: string, privateKey: string, environment?: string) {
     if (!publicKey || !privateKey)
       throw new Error("Public or Private keys are required!");
     if (!this.environment)
@@ -35,7 +31,7 @@ export default abstract class SquadBaseClient {
 
     this.pubilcKey = publicKey;
     this.privateKey = privateKey;
-    this.environment = environment;
+    this.environment = environment || "development";
     this.baseUrl =
       this.environment == "development"
         ? "https://sandbox-api-d.squadco.com"

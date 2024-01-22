@@ -1,11 +1,21 @@
 import SquadBaseClient from "./squad";
-import type { InitiatePaymentProps } from "./interfaces/payment.interface";
+import type {
+  InitiatePaymentProps,
+  InitiatePaymentResponseProps,
+} from "./interfaces/payment.interface";
 
 /**
  * @summary Payment Base Class
  * @extends SquadBaseClient
  */
 export default class SquadPayment extends SquadBaseClient {
+  constructor(
+    publicKey: string,
+    privateKey: string,
+    environment: "production" | "development"
+  ) {
+    super(publicKey, privateKey, environment);
+  }
   /**
    * @summary This method allows you to initiate a transaction
    * by making calls from your server which returns a URL that
@@ -31,7 +41,7 @@ export default class SquadPayment extends SquadBaseClient {
 
   public async initiatePayment(
     transactionData: InitiatePaymentProps
-  ): Promise<any> {
+  ): Promise<InitiatePaymentResponseProps> {
     if (!transactionData || typeof transactionData !== "object")
       throw new Error("Invalid transaction data!");
 
@@ -54,6 +64,10 @@ export default class SquadPayment extends SquadBaseClient {
         "/transaction/initiate",
         dataToSend
       );
+
+      const squadResponse: InitiatePaymentResponseProps = response.data;
+
+      return squadResponse;
     } catch (error: any) {
       throw Error(error);
     }
