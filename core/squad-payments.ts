@@ -34,13 +34,14 @@ export default class SquadPayment extends SquadBaseClient {
    * @param {object} [transactionData.metadata] Object that contains any additional information that you want to record with the transaction. The custom fields in the object will be returned via webhook and the payment verification endpoint.
    * @param {boolean} [transactionData.passCharge] This takes two possible values: True or False. It is set to False by default. When set to True, the charges on the transaction is computed and passed on to the customer(payer). But when set to False, the charge is passed to the merchant and will be deducted from the amount to be settled to the merchant.
    * @param {string} [transactionData.subMerchantId] This is the ID of a merchant that was created by an aggregator which allows the aggregator initiate a transaction on behalf of the submerchant. This parameter is an optional field that is passed only by a registered aggregator.
-   *
+   * @param {boolean} [tokenizeCard] This is to tokenize a card. Adding this to the initiate payload when calling the initiatePayment method,  will automatically be tokenize the card. The unique token code will automatically be added to the webhook notification that will be received after payment. @see https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment
    * @returns {string} The URL for the payment modal.
    * @throws {Error} Throws an error if validation fails.
    */
 
   public async initiatePayment(
-    transactionData: InitiatePaymentProps
+    transactionData: InitiatePaymentProps,
+    tokenizeCard: boolean = false
   ): Promise<InitiatePaymentResponseProps> {
     if (!transactionData || typeof transactionData !== "object")
       throw new Error("Invalid transaction data!");
@@ -57,6 +58,7 @@ export default class SquadPayment extends SquadBaseClient {
       metadata: transactionData.metadata,
       pass_charge: transactionData.passCharge,
       sub_merchant_id: transactionData.subMerchantId,
+      is_recurring: tokenizeCard,
     };
 
     try {
