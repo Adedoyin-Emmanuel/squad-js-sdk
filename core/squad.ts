@@ -5,17 +5,17 @@ import axios, { Axios } from "axios";
  * Squad JavaScript SDK
  * Built with ❣️ by Adedoyin Emmanuel Adeniyi https://github.com/adedoyin-emmanuel/
  */
-class SquadClient {
-  private pubilcKey: string;
-  private privateKey: string;
-  private Axios: Axios;
-  private baseUrl: string;
+export default abstract class SquadBaseClient {
+  protected pubilcKey: string;
+  protected privateKey: string;
+  protected Axios: Axios;
+  protected baseUrl: string;
 
   /**
    * @summary
    * The environment to use for the client. If not specified, defaults to "development".
    */
-  private environment: string = "development";
+  protected environment: string = "development";
 
   /**
    * @summary This creates a new instance of Squad JS SDK
