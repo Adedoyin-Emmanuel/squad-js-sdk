@@ -14,9 +14,19 @@ const args = {
   customerName: "Adedoyin Emmanuel Adeniyi",
 };
 
-const response = squad.initiatePayment(args);
+const response = squad.initiatePayment(args, true);
 
 response.then((data) => {
-  console.log(data.message);
-  console.log(data.data?.checkout_url);
+  console.log(data.data);
+});
+
+const args2 = {
+  amount: 10000,
+  tokenId: "tJlYMKcwPd",
+};
+
+const response2 = squad.chargeCard(args2);
+
+response2.then((data) => {
+  console.log(data);
 });
