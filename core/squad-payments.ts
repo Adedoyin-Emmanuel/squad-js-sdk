@@ -2,6 +2,8 @@ import SquadBaseClient from "./squad";
 import type {
   InitiatePaymentProps,
   InitiatePaymentResponseProps,
+  ChargeCardProps,
+  ChargeCardResponseProps,
 } from "./interfaces/payment.interface";
 
 /**
@@ -9,12 +11,21 @@ import type {
  * @extends SquadBaseClient
  */
 export default class SquadPayment extends SquadBaseClient {
+  /**
+   * @summary This is the sub class for the Squad Payment Module
+   * @param {string} publicKey - Squad public key
+   * @param {string} privateKey - Squad private key
+   * @param {string} environment - The environment to use for the client. If not specified, defaults to "development".
+   */
+
+  private basePaymentUrl: string;
   constructor(
     publicKey: string,
     privateKey: string,
     environment: "production" | "development"
   ) {
     super(publicKey, privateKey, environment);
+    this.basePaymentUrl = "/transaction";
   }
   /**
    * @summary This method allows you to initiate a transaction
@@ -62,14 +73,36 @@ export default class SquadPayment extends SquadBaseClient {
     };
 
     try {
-      const response = await this.Axios.post(
-        "/transaction/initiate",
+      const squadResponse = await this.Axios.post(
+        `${this.basePaymentUrl}/initiate`,
         dataToSend
       );
 
-      const squadResponse: InitiatePaymentResponseProps = response.data;
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
 
-      return squadResponse;
+  public async chargeCard(
+    transactionData: ChargeCardProps
+  ): Promise<ChargeCardResponseProps> {
+    if (!transactionData || typeof transactionData !== "object")
+      throw new Error("Invalid transaction data!");
+
+    const dataToSend = {
+      amount: transactionData.amount,
+      token_id: transactionData.tokenId,
+      transaction_ref: transactionData.transactionRef,
+    };
+
+    try {
+      const squadResponse = await this.Axios.post(
+        `${this.basePaymentUrl}/charge_card`,
+        dataToSend
+      );
+
+      return squadResponse.data;
     } catch (error: any) {
       throw Error(error);
     }

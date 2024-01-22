@@ -34,3 +34,11 @@ export interface InitiatePaymentResponseProps {
     checkout_url: string;
   };
 }
+
+export interface ChargeCardProps {
+  amount: number;
+  tokenId: number;
+  transactionRef?: string;
+}
+
+export interface ChargeCardResponseProps extends InitiatePaymentResponseProps {}
