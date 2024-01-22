@@ -7,21 +7,14 @@ const squad = new CreateSquadClient(
 );
 
 const args = {
-  amount: 30000,
-  email: "adedoyine535@gmail.com",
-  initiateType: "inline",
-  currency: "NGN",
-  customerName: "Adedoyin Emmanuel Adeniyi",
+  displayName: "Adedoyin Emmanuel",
+  accountName: "Adedoyin Emmanuel",
+  accountNumber: "0000000000",
+  bankCode: "058",
+  bankName: "GTBank",
 };
+const response = squad.createSubMerchant(args);
 
-const response = squad.initiatePayment(args, true);
-
-response.then(async (data) => {
-  console.log(data.data);
-
-  //verify a transaction after successful payment
-  const transactionRef: any = data.data?.transaction_ref as string;
-  const response = await squad.verifyTransaction(transactionRef);
-
-  console.log(response);
+response.then((data) => {
+  console.log(data.data?.account_id);
 });

@@ -9,12 +9,10 @@ export interface SubMerchantProps {
 }
 
 export interface SubMerchantResponseProps {
-  data: {
-    status: number;
-    success: true;
-    message: string;
-    data?: {
-      account_id: string;
-    };
+  status: number;
+  success: true;
+  message: string;
+  data?: {
+    account_id: string;
   };
 }
