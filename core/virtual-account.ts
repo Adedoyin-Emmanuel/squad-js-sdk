@@ -5,6 +5,7 @@ import type {
   BusinessVirtualAccountProps,
   BusinessVirtualAccountResponseProps,
   WebhookPropsResponseProps,
+  WebhookDeletionResponseProps,
 } from "./interfaces/virtual-account.interface";
 
 export default class SquadVirtualAccount extends SquadSubMerchant {
@@ -141,6 +142,11 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
     page?: number,
     perPage?: number
   ): Promise<WebhookPropsResponseProps> {
+    if (
+      (page && typeof page !== "number") ||
+      (perPage && typeof perPage !== "number")
+    )
+      throw new Error("Validation error! Page or PerPage must be a number");
     const dataToSend = {
       page,
       perPage,
@@ -149,6 +155,31 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       const squadResponse = await this.Axios.get(
         `${this.baseVirtualAccountUrl}/webhook/logs`,
         dataToSend as any
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This API enables you delete a processed transaction from the webhook error log
+   * When you delete the transaction from the log, it won't be returned to you again.
+   * Failure to delete a transaction will result in the transaction being returned to
+   * you in the top 100 transactions returned each time you retry
+   *
+   * @param {string} transactionRef
+   */
+  public async deleteWebhookErrorLog(
+    transactionRef: string
+  ): Promise<WebhookDeletionResponseProps> {
+    if (!transactionRef || typeof transactionRef !== "string")
+      throw new Error("Validation error! TransactionRef must be a string");
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/webhook/logs/${transactionRef}`
       );
 
       return squadResponse.data;
