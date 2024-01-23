@@ -3,7 +3,8 @@ import type {
   VirtualAccountProps,
   VirtualAccountResponseProps,
   BusinessVirtualAccountProps,
-  BusinessVirtualAccountResponsePros,
+  BusinessVirtualAccountResponseProps,
+  WebhookPropsResponseProps,
 } from "./interfaces/virtual-account.interface";
 
 export default class SquadVirtualAccount extends SquadSubMerchant {
@@ -94,7 +95,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
    */
   public async createBusinessVirtualAccount(
     transactionData: BusinessVirtualAccountProps
-  ): Promise<BusinessVirtualAccountResponsePros> {
+  ): Promise<BusinessVirtualAccountResponseProps> {
     if (!transactionData || typeof transactionData !== "object")
       throw new Error("Invalid transaction data!");
 
@@ -110,6 +111,45 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       const squadResponse = await this.Axios.post(
         `${this.baseVirtualAccountUrl}/business`,
         dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This method allows you retrieve all your missed webhook transactions
+   * and use it to update your record without manual input.The top 100 missed
+   * webhook will always be returned by default and it This flow involves
+   * integration of two(2) APIs Once you have updated the record of a particular
+   * transaction, you are expected to use the second API to delete the record from
+   * the error log. If this is not done, the transaction will continuously be returned
+   * to you in the first 100 transactions until you delete it. This will only work for those
+   * who respond correctly to our webhook calls. Also, ensure you have a transaction
+   * duplicate checker to ensure you don't update a record twice or update a record
+   * you have updated using the webhook or the transaction API.
+   *
+   *
+   *
+   * @param {number} page - The page you are on
+   * @param {number} perPage - The number of records you want to appear on a page
+   *
+   */
+
+  public async getWebhookErrorLog(
+    page?: number,
+    perPage?: number
+  ): Promise<WebhookPropsResponseProps> {
+    const dataToSend = {
+      page,
+      perPage,
+    };
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/webhook/logs`,
+        dataToSend as any
       );
 
       return squadResponse.data;

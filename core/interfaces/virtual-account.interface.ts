@@ -37,7 +37,7 @@ export interface BusinessVirtualAccountProps {
   beneficiaryAccount: string;
 }
 
-export interface BusinessVirtualAccountResponsePros extends BaseResponseProps {
+export interface BusinessVirtualAccountResponseProps extends BaseResponseProps {
   data: {
     first_name: string;
     last_name: string;
@@ -49,3 +49,37 @@ export interface BusinessVirtualAccountResponsePros extends BaseResponseProps {
     updated_at: Date;
   };
 }
+
+export interface WebhookProps {
+  id: string;
+  payload: {
+    hash: string;
+    meta: {
+      freeze_transaction_ref: string | null;
+      reason_for_frozen_transaction: string | null;
+    };
+    channel: string;
+    remarks: string;
+    currency: string | "NGN" | "USD";
+    fee_charged: string;
+    sender_name: string;
+    encrypted_body: string;
+    settled_amount: string;
+    principal_amount: string;
+    transaction_date: string;
+    customer_identifier: string;
+    transaction_indicator: string;
+    transaction_reference: string;
+    virtual_account_number: string;
+  };
+  transactionRef: string;
+}
+
+export interface WebhookPropsResponseProps {
+  data: {
+    count: number;
+    rows: WebhookProps[];
+  };
+}
+
+
