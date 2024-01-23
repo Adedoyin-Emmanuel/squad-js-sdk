@@ -137,7 +137,6 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
    * @param {number} perPage - The number of records you want to appear on a page
    *
    */
-
   public async getWebhookErrorLog(
     page?: number,
     perPage?: number
