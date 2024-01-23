@@ -10,6 +10,7 @@ import type {
   MerchantTransactionResponseProps,
   MerchantTransactionFiltersProps,
   MerchantTransactionFilterResponseProps,
+  FindCustomerResponseProps,
 } from "./interfaces/virtual-account.interface";
 
 export default class SquadVirtualAccount extends SquadSubMerchant {
@@ -274,6 +275,29 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       const squadResponse = await this.Axios.get(
         `${this.baseVirtualAccountUrl}/merchant/transactions/all`,
         dataToSend as any
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This method retrives the details of a customer using the Virtual Account Number
+   * @param virtualAccountNumber
+   */
+  public async findCustomerByVirtualAccountNumber(
+    virtualAccountNumber: string
+  ): Promise<FindCustomerResponseProps> {
+    if (!virtualAccountNumber || typeof virtualAccountNumber !== "string")
+      throw new Error(
+        "Validation error! Virtual Account Number must be a string"
+      );
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/customer/${virtualAccountNumber}`
       );
 
       return squadResponse.data;

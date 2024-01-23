@@ -164,3 +164,17 @@ export interface MerchantTransactionFilterResponseProps
     customer_identifier: string;
   };
 }
+
+
+export interface FindCustomerProps {
+  first_name: string;
+  last_name: string;
+  mobile_num: string;
+  email: string;
+  customer_identifier: string;
+  virtual_account_number: string;
+}
+
+export interface FindCustomerResponseProps extends BaseResponseProps{
+  data: FindCustomerProps | {}
+}

@@ -6,6 +6,7 @@ const squad = new CreateSquadClient(
   process.env.NODE_ENV as "development" | "production"
 );
 
+
 const response = squad.deleteWebhookErrorLog("1234");
 
 response.then((data) => {
