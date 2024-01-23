@@ -11,6 +11,8 @@ import type {
   MerchantTransactionFiltersProps,
   MerchantTransactionFilterResponseProps,
   FindCustomerResponseProps,
+  CustomerDetailsProps,
+  CustomerDetailsResponseProps,
 } from "./interfaces/virtual-account.interface";
 
 export default class SquadVirtualAccount extends SquadSubMerchant {
@@ -22,6 +24,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
    */
 
   private baseVirtualAccountUrl: string;
+
   constructor(
     publicKey: string,
     privateKey: string,
@@ -236,7 +239,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       throw Error(error);
     }
   }
-
+  
   /***
    * @summary This method allows you query all transactions and filter using multiple parameters
    *  like virtual account number, start and end dates, customer Identifier etc
@@ -305,4 +308,29 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       throw Error(error);
     }
   }
+
+  /**
+   * @summary This is method retrives the details of a customer'svirtual account using the Customer Identifier
+   * @param virtualAccountNumber
+   */
+  public async getCustomerVirtualAccountDetails(
+    customerIdentifier: string
+  ): Promise<any> {
+    if (!customerIdentifier || typeof customerIdentifier !== "string")
+      throw new Error(
+        "Validation error! Customer Identifier Number must be a string"
+      );
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/${customerIdentifier}`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  
 }

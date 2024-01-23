@@ -165,7 +165,6 @@ export interface MerchantTransactionFilterResponseProps
   };
 }
 
-
 export interface FindCustomerProps {
   first_name: string;
   last_name: string;
@@ -175,6 +174,20 @@ export interface FindCustomerProps {
   virtual_account_number: string;
 }
 
-export interface FindCustomerResponseProps extends BaseResponseProps{
-  data: FindCustomerProps | {}
+export interface FindCustomerResponseProps extends BaseResponseProps {
+  data: FindCustomerProps | {};
+}
+
+export interface CustomerDetailsProps {
+  first_name: string;
+  last_name: string;
+  bank_code: string;
+  virtual_account_number: string;
+  customer_identifier: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface CustomerDetailsResponseProps extends BaseResponseProps {
+  data: CustomerDetailsResponseProps;
 }
