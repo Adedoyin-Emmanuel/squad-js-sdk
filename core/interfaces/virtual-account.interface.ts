@@ -28,3 +28,24 @@ export interface VirtualAccountResponseProps extends BaseResponseProps {
     updated_at: Date;
   };
 }
+
+export interface BusinessVirtualAccountProps {
+  bvn: string;
+  businessName: string;
+  customerIdentifier: string;
+  mobileNumber: string;
+  beneficiaryAccount: string;
+}
+
+export interface BusinessVirtualAccountResponsePros extends BaseResponseProps {
+  data: {
+    first_name: string;
+    last_name: string;
+    bank_code: string;
+    virtual_account_number: string;
+    beneficiary_account: string | null;
+    customer_identifier: string;
+    created_at: Date;
+    updated_at: Date;
+  };
+}
