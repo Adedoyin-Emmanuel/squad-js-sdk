@@ -1,4 +1,9 @@
 import SquadSubMerchant from "./sub-merchant";
+import type {
+  VirtualAccountProps,
+  VirtualAccountResponseProps,
+} from "./interfaces/virtual-account.interface";
+
 export default class SquadVirtualAccount extends SquadSubMerchant {
   /**
    * @summary This is the sub class for the Squad Virtual Account Module
@@ -35,7 +40,9 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
    * 
    */
 
-  public async createVirtualAccount(transactionData: any): Promise<any> {
+  public async createVirtualAccount(
+    transactionData: VirtualAccountProps
+  ): Promise<VirtualAccountResponseProps> {
     if (!transactionData || typeof transactionData !== "object")
       throw new Error("Invalid transaction data!");
 
@@ -43,7 +50,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       first_name: transactionData.firstName,
       last_name: transactionData.lastName,
       middle_name: transactionData.middleName,
-      mobile_number: transactionData.mobileNumber,
+      mobile_num: transactionData.mobileNumber,
       dob: transactionData.dob,
       email: transactionData.email,
       bvn: transactionData.bvn,
@@ -61,6 +68,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
+      console.log(error);
       throw Error(error);
     }
   }

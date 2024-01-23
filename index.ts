@@ -7,14 +7,19 @@ const squad = new CreateSquadClient(
 );
 
 const args = {
-  displayName: "Adedoyin Emmanuel",
-  accountName: "Adedoyin Emmanuel",
-  accountNumber: "0000000000",
-  bankCode: "058",
-  bankName: "GTBank",
+  firstName: "Adedoyin",
+  lastName: "Emmanuel",
+  middleName: "Adeniyi",
+  mobileNumber: "07061620301",
+  dob: "09/14/2005" ,
+  email: "adedoyine535@gmail.com",
+  bvn: "1234567890",
+  gender: "1",
+  address: "Lagos Nigeria",
+  customerIdentifier: "1234567890",
+  beneficiaryAccount: "0123456789",
 };
-const response = squad.createSubMerchant(args);
 
-response.then((data) => {
-  console.log(data.data?.account_id);
+squad.createVirtualAccount(args).then((data) => {
+  console.log(data);
 });

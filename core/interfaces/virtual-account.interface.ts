@@ -5,10 +5,10 @@ export interface VirtualAccountProps {
   lastName: string;
   middleName: string;
   mobileNumber: string;
-  dob: Date;
+  dob: string;
   email: string;
   bvn: string;
-  gender: "1" | "2";
+  gender: string | "1" | "2";
   address: string;
   customerIdentifier: string;
   beneficiaryAccount?: string;
