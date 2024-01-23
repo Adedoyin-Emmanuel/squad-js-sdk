@@ -6,6 +6,7 @@ import type {
   BusinessVirtualAccountResponseProps,
   WebhookPropsResponseProps,
   WebhookDeletionResponseProps,
+  CustomerTransactionResponseProps,
 } from "./interfaces/virtual-account.interface";
 
 export default class SquadVirtualAccount extends SquadSubMerchant {
@@ -185,6 +186,32 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       return squadResponse.data;
     } catch (error: any) {
       throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This is a method to query the transactions a customer has made.
+   * This is done using the customer's identifier which was passed when
+   * creating the virtual account.
+   *
+   * @param customerIdentifier
+   */
+  public async findCustomerTransactionById(
+    customerIdentifier: string
+  ): Promise<CustomerTransactionResponseProps> {
+    if (!customerIdentifier || typeof customerIdentifier !== "string")
+      throw new Error(
+        "Validation error! Customer Identifier must be a string!"
+      );
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/customer/transactions/${customerIdentifier}`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 }

@@ -85,3 +85,25 @@ export interface WebhookPropsResponseProps {
 export interface WebhookDeletionResponseProps extends BaseResponseProps {
   data: string | {};
 }
+
+export interface CustomerTransactionProps {
+  transaction_reference: string;
+  virtual_account_number: string;
+  principal_amount: string;
+  settled_amount: string;
+  fee_charged: string;
+  transaction_date: Date;
+  transaction_indicator: string | "C";
+  remarks: string;
+  currency: string | "NGN" | "USD";
+  frozen_transaction: {
+    freeze_transaction_ref: string;
+    reason: string;
+  };
+  customer: {
+    customer_identifier: string;
+  };
+}
+export interface CustomerTransactionResponseProps extends BaseResponseProps {
+  data: CustomerTransactionProps[];
+}
