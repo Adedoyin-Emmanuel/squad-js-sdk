@@ -7,6 +7,9 @@ import type {
   WebhookPropsResponseProps,
   WebhookDeletionResponseProps,
   CustomerTransactionResponseProps,
+  MerchantTransactionResponseProps,
+  MerchantTransactionFiltersProps,
+  MerchantTransactionFilterResponseProps,
 } from "./interfaces/virtual-account.interface";
 
 export default class SquadVirtualAccount extends SquadSubMerchant {
@@ -212,6 +215,70 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       return squadResponse.data;
     } catch (error: any) {
       throw new Error(error);
+    }
+  }
+
+  /**
+   * @summary This is a method to query all the merchant transactions over a period of time.
+   *
+   * @params None
+   *
+   */
+  public async findAllMerchantTransactions(): Promise<MerchantTransactionResponseProps> {
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/merchant/transactions/`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /***
+   * @summary This method allows you query all transactions and filter using multiple parameters
+   *  like virtual account number, start and end dates, customer Identifier etc
+   *
+   * @param filters
+   * @param {number} [filters.page] - The page number to display
+   * @param {number} [filters.perPage] - The number of records per page
+   * @param {number} [filters.virtualAccount] - The virtual account, a 10 digit virtual account number
+   * @param {string} [filters.customerIdentifier] - The unique customer identifier used to identify a customer account
+   * @param {date} [filters.startDate] - The start date
+   * @param {date} [filters.endDate] - The end date
+   * @param {string} [filters.transacationReference] - The transaction reference
+   * @param {string} [filters.sessionId] - The session identifier of the transaction
+   * @param {string} [filters.dir] - Takes 2 possible values ASC (Ascending) or DESC (Descending order)
+   *
+   */
+  public async findAllMerchantTransactionsByFilter(
+    filters: MerchantTransactionFiltersProps
+  ): Promise<MerchantTransactionFilterResponseProps> {
+    if (!filters || typeof filters !== "object")
+      throw new Error("Validation error! Invalid filters");
+
+    const dataToSend = {
+      page: filters.page,
+      perPage: filters.perPage,
+      virtualAccount: filters.virtualAccount,
+      customerIdentifier: filters.customerIdentifier,
+      startDate: filters.startDate,
+      endDate: filters.endDate,
+      transactionReference: filters.transactionReference,
+      session_id: filters.sessionId,
+      dir: filters.dir,
+    };
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/merchant/transactions/all`,
+        dataToSend as any
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
     }
   }
 }

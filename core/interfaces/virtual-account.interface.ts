@@ -99,11 +99,68 @@ export interface CustomerTransactionProps {
   frozen_transaction: {
     freeze_transaction_ref: string;
     reason: string;
-  };
+  } | null;
   customer: {
     customer_identifier: string;
   };
 }
 export interface CustomerTransactionResponseProps extends BaseResponseProps {
   data: CustomerTransactionProps[];
+}
+
+export interface MerchantTransactionProps {
+  transaction_reference: string;
+  virtual_account_number: string;
+  principal_amount: string;
+  settled_amount: string;
+  fee_charged: string;
+  transaction_date: Date;
+  transaction_indicator: string | "C";
+  remarks: string;
+  currency: string | "NGN" | "USD";
+  frozen_transaction: {
+    freeze_transaction_ref: string;
+    reason: string;
+  } | null;
+  customer: {
+    customer_identifier: string;
+  };
+}
+
+export interface MerchantTransactionResponseProps extends BaseResponseProps {
+  data: MerchantTransactionProps[];
+}
+
+export interface MerchantTransactionFiltersProps {
+  page?: number;
+  perPage?: number;
+  virtualAccount?: number;
+  customerIdentifier?: string;
+  startDate?: Date;
+  endDate?: Date;
+  transactionReference?: string;
+  sessionId?: string;
+  dir?: string | "ASC" | "DESC";
+}
+
+export interface MerchantTransactionFilterResponseProps
+  extends BaseResponseProps {
+  transaction_reference: string;
+  virtual_account_number: string;
+  principal_amount: string;
+  settled_amount: string;
+  fee_charged: string;
+  transaction_date: Date;
+  transaction_indicator: string | "C";
+  remarks: string;
+  currency: string | "NGN" | "USD";
+  alerted_merchant: boolean;
+  merchant_settlement_date: Date;
+  frozen_transaction: {
+    freeze_transaction_ref: string;
+    reason: string;
+  } | null;
+  customer: {
+    customer_identifier: string;
+  };
 }
