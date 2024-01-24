@@ -15,7 +15,7 @@ import type {
   CustomerDetailsResponseProps,
 } from "./interfaces/virtual-account.interface";
 
-export default class SquadVirtualAccount extends SquadSubMerchant {
+export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
    * @summary This is the sub class for the Squad Virtual Account Module
    * @param {string} publicKey - Squad public key
@@ -239,7 +239,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
       throw Error(error);
     }
   }
-  
+
   /***
    * @summary This method allows you query all transactions and filter using multiple parameters
    *  like virtual account number, start and end dates, customer Identifier etc
@@ -315,7 +315,7 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
    */
   public async getCustomerVirtualAccountDetails(
     customerIdentifier: string
-  ): Promise<any> {
+  ): Promise<CustomerDetailsResponseProps> {
     if (!customerIdentifier || typeof customerIdentifier !== "string")
       throw new Error(
         "Validation error! Customer Identifier Number must be a string"
@@ -332,5 +332,8 @@ export default class SquadVirtualAccount extends SquadSubMerchant {
     }
   }
 
-  
+  /**
+   * @summary This is method to retrieve the details of a customer'svirtual account using the Customer Identifier
+   * @param virtualAccountNumber
+   */
 }

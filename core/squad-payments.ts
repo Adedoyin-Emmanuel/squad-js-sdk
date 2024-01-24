@@ -12,7 +12,7 @@ import type {
  * @summary Payment Base Class
  * @extends SquadBaseClient
  */
-export default class SquadPayment extends SquadBaseClient {
+export default abstract class  SquadPayment extends SquadBaseClient {
   /**
    * @summary This is the sub class for the Squad Payment Module
    * @param {string} publicKey - Squad public key

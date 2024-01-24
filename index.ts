@@ -1,4 +1,5 @@
 import { CreateSquadClient } from "./core";
+import SquadVirtualAccount from "./core/virtual-account";
 
 const squad = new CreateSquadClient(
   process.env.SQUAD_PUBLIC_KEY as string,
@@ -13,3 +14,6 @@ response.then((data) => {
   console.log(data.status);
   console.log(data.message);
 });
+
+
+

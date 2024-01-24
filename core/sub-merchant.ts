@@ -4,7 +4,7 @@ import type {
   SubMerchantResponseProps,
 } from "./interfaces/sub-merchant.interface";
 
-export default class SquadSubMerchant extends SquadPayment {
+export default abstract class SquadSubMerchant extends SquadPayment {
   /**
    * @summary This is the sub class for the Squad Sub-Merchant Module
    * @param {string} publicKey - Squad public key
