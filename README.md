@@ -9,22 +9,22 @@
   <a href="https://github.com/adedoyin-emmanuel/squad-js-sdk/releases"><img alt="GitHub downloads" src="https://img.shields.io/github/downloads/adedoyin-emmanuel/squad-js-sdk/total.svg"></a>
 </div>
 
-## Table Of Content
+# Table Of Content
 
 - [Table Of Content](#table-of-content)
   - [Introduction 🚀](#introduction-)
     - [Why Did I Build This? 🤔](#why-did-i-build-this-)
   - [Installation 💽](#installation-)
 
-### Introduction 🚀
+## Introduction 🚀
 
 Simplify the integration process with Squad's comprehensive payment solutions using the Squad JavaScript SDK. This SDK provides an easy-to-use, chainable interface for developers to seamlessly incorporate Squad's features into their JavaScript applications. Built with ❣️ by Adedoyin Emmanuel Adeniyi
 
-#### Why Did I Build This? 🤔
+### Why Did I Build This? 🤔
 
 Okay, good question. While this **SDK** is a game changer for anyone working with **Squad Payment Gateway** in their application, I also built this **SDK** as a point of contact to the **SquadCo Team** I haven't seen a company that I'm soo intrested in working that than **Squad**. I really love what you're building and I would love to be part of the team. After the hackathon, I suddenly fell in love with their product and I've been preaching the gosple of their product in every possible way.
 
-### Installation 💽
+## Installation 💽
 
 To install the **SDK** in your application, you can install using `npm, yarn, pnpm or bunx`
 
