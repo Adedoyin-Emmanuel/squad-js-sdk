@@ -114,4 +114,34 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
       throw Error(error);
     }
   }
+
+  /**
+   * @summary This method allows you re-query the status of a transfer made to know if it was successful, failed, reversed or pending.
+   * @param transactionReference - Unique Transaction Reference used to initiate a transfer.
+   * Please ensure that you append your merchant ID to the transaction Reference you
+   * are creating. This is compulsory as it will throw an error if you don't append it
+   */
+  public async reQueryFundsTransfer(
+    transactionReference: string
+  ): Promise<FundsTransferReponseProps> {
+    if (!transactionReference || typeof transactionReference !== "string")
+      throw new Error(
+        "Validation Error ! Transaction Reference must be a string"
+      );
+
+    const dataToSend = {
+      transaction_reference: transactionReference,
+    };
+
+    try {
+      const squadResponse = await this.Axios.post(
+        `${this.baseTransferUrl}/requery`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
 }
