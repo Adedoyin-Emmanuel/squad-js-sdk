@@ -11,9 +11,10 @@ import type {
   MerchantTransactionFiltersProps,
   MerchantTransactionFilterResponseProps,
   FindCustomerResponseProps,
-  CustomerDetailsProps,
   CustomerDetailsResponseProps,
+  MerchantVirtualAccountResponseProps,
 } from "./interfaces/virtual-account.interface";
+import type { BaseResponseProps } from "./interfaces/base-response";
 
 export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
@@ -333,7 +334,48 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This is method to retrieve the details of a customer'svirtual account using the Customer Identifier
-   * @param virtualAccountNumber
+   * @summary This is method to update customer's BVN and Unfreeze transaction
+   * @param {string} customerBvn - The bank verfication number of the customer
+   * @param {string} customerIdentifier - The unique number given to customer by merchant
+   * @param {string} phoneNumber - The phone number of the customer
+   *
+   *
+   * @returns {}
    */
+
+  public async updateCustomerBvn(
+    customerBvn: string,
+    customerIdentifier: string,
+    phoneNumber: string
+  ): Promise<BaseResponseProps> {
+    if (
+      !customerBvn ||
+      !customerIdentifier ||
+      !phoneNumber ||
+      typeof customerBvn !== "string" ||
+      typeof customerIdentifier !== "string" ||
+      typeof phoneNumber !== "string"
+    )
+      throw new Error(
+        "Validation error! Customer BVN, Customer Identifier and Phone Number must be a string"
+      );
+
+    const dataToSend = {
+      customer_bvn: customerBvn,
+      customer_identifier: customerIdentifier,
+      phone_number: phoneNumber,
+    };
+
+    try {
+      const squadResponse = await this.Axios.patch(
+        `${this.baseVirtualAccountUrl}/update/bvn`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.log(error);
+      throw Error(error);
+    }
+  }
 }

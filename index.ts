@@ -1,5 +1,4 @@
 import { CreateSquadClient } from "./core";
-import SquadVirtualAccount from "./core/virtual-account";
 
 const squad = new CreateSquadClient(
   process.env.SQUAD_PUBLIC_KEY as string,
@@ -7,13 +6,7 @@ const squad = new CreateSquadClient(
   process.env.NODE_ENV as "development" | "production"
 );
 
-
-const response = squad.deleteWebhookErrorLog("1234");
-
-response.then((data) => {
+squad.updateCustomerBvn("1245", "CCC", "07061620301").then((data) => {
   console.log(data.status);
   console.log(data.message);
 });
-
-
-

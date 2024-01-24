@@ -191,3 +191,20 @@ export interface CustomerDetailsProps {
 export interface CustomerDetailsResponseProps extends BaseResponseProps {
   data: CustomerDetailsResponseProps;
 }
+
+export interface MerchantVirtualAccountProps {
+  bank_code: string;
+  virtual_account_number: string;
+  beneficiary_account: string;
+  created_at: Date;
+  updated_at: Date;
+  customer: {
+    first_name: string;
+    last_name: string;
+    customer_identifier: string;
+  };
+}
+
+export interface MerchantVirtualAccountResponseProps extends BaseResponseProps {
+  data: MerchantVirtualAccountProps[];
+}
