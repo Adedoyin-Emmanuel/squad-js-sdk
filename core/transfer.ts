@@ -59,7 +59,8 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -112,7 +113,8 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -142,7 +144,8 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -158,7 +161,8 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 }

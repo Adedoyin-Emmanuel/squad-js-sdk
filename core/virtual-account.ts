@@ -80,8 +80,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      console.log(error);
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -124,7 +124,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -167,7 +168,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -192,7 +194,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -218,7 +221,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw new Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -235,7 +239,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -281,7 +286,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -304,7 +310,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -327,7 +334,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -372,8 +380,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      console.log(error);
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -418,7 +426,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -454,7 +463,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -485,7 +495,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 }

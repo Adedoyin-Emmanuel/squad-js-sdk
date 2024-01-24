@@ -12,7 +12,7 @@ import type {
  * @desc Payment Base Class
  * @extends SquadBaseClient
  */
-export default abstract class  SquadPayment extends SquadBaseClient {
+export default abstract class SquadPayment extends SquadBaseClient {
   /**
    * @desc This is the sub class for the Squad Payment Module
    * @arg {string} publicKey - Squad public key
@@ -82,7 +82,8 @@ export default abstract class  SquadPayment extends SquadBaseClient {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -115,7 +116,8 @@ export default abstract class  SquadPayment extends SquadBaseClient {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 
@@ -137,7 +139,8 @@ export default abstract class  SquadPayment extends SquadBaseClient {
 
       return squadResponse.data;
     } catch (error: any) {
-      throw Error(error);
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
     }
   }
 }
