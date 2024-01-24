@@ -7,7 +7,7 @@ export interface AccountLookupResponseProps extends BaseResponseProps {
   };
 }
 
-export interface FundsTransferProps {
+export interface FundsTransferRequestProps {
   remark: string;
   bankCode: string;
   currencyId: string | "NGN";
@@ -17,16 +17,22 @@ export interface FundsTransferProps {
   accountName: string;
 }
 
+export interface FundsTransferProps {
+  account_number_credited: string;
+  amount_debited: string;
+  total_amount_debited: string;
+  success: boolean;
+  recipient: string;
+  bank_code: number;
+  transaction_reference: string;
+  transaction_status: string;
+  switch_transaction: null | any;
+}
+
 export interface FundsTransferReponseProps extends BaseResponseProps {
-  data: {
-    account_number_credited: string;
-    amount_debited: string;
-    total_amount_debited: string;
-    success: boolean;
-    recipient: string;
-    bank_code: number;
-    transaction_reference: string;
-    transaction_status: string;
-    switch_transaction: null | any;
-  };
+  data: FundsTransferProps;
+}
+
+export interface AllTransferResponseProps extends BaseResponseProps {
+  data: FundsTransferProps[];
 }

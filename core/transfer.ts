@@ -2,8 +2,9 @@ import SquadVirtualAccount from "./virtual-account";
 import type { BaseResponseProps } from "./interfaces/base-response";
 import type {
   AccountLookupResponseProps,
-  FundsTransferProps,
+  FundsTransferRequestProps,
   FundsTransferReponseProps,
+  AllTransferResponseProps,
 } from "./interfaces/transfer.interface";
 
 export default abstract class SquadTransfer extends SquadVirtualAccount {
@@ -88,7 +89,7 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
     @param {string} remark - A unique remark that will be sent with the transfer
    */
   public async transferFunds(
-    transactionData: FundsTransferProps
+    transactionData: FundsTransferRequestProps
   ): Promise<FundsTransferReponseProps> {
     if (!transactionData || typeof transactionData !== "object")
       throw new Error("Validation Error! Invalid transaction data");
@@ -137,6 +138,22 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
       const squadResponse = await this.Axios.post(
         `${this.baseTransferUrl}/requery`,
         dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This method allows you retrieve the details of all transfers you have done from your Squad Wallet using this transfer solution.
+   * @param None
+   */
+  public async getAllTransfers(): Promise<AllTransferResponseProps> {
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseTransferUrl}/list`
       );
 
       return squadResponse.data;
