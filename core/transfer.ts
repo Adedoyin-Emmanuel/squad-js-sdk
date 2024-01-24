@@ -1,6 +1,10 @@
 import SquadVirtualAccount from "./virtual-account";
 import type { BaseResponseProps } from "./interfaces/base-response";
-import type { AccountLookupResponseProps } from "./interfaces/transfer.interface";
+import type {
+  AccountLookupResponseProps,
+  FundsTransferProps,
+  FundsTransferReponseProps,
+} from "./interfaces/transfer.interface";
 
 export default abstract class SquadTransfer extends SquadVirtualAccount {
   /**
@@ -49,6 +53,59 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
     try {
       const squadResponse = await this.Axios.post(
         `${this.baseTransferUrl}/account/lookup`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This method allows you to transfer funds from your Squad Wallet
+   * to the account you have looked up. Please be informed that we will not be 
+   * held liable for mistake in transferring to a wrong account or an account
+   * that wasn't looked up.
+    Transaction Reference: Transaction Reference used to initiate a transfer 
+    must be unique per transfer. Kindly ensure that you append your merchant ID
+     to the transaction Reference you are creating. This is compulsory as it will throw 
+     an error if you don't append it.
+    For instance: If my Squad Merchant ID is SBABCKDY and i want to create a transaction ref for my transfer, then I will have something like: 
+    "transactionReference":"SBABCKDY_12345".
+
+    @param {string} transactionReference - Unique Transaction Reference used to initiate a transfer.
+     Please ensure your merchantId to the transaction reference you're creating. This
+     is compulsory as it will throw an error if you don't append it.
+
+    @param {string} amount - Amount to be transferred. Amount is in Kobo
+    @param {string} bankCode - Unique NIP code that identifies a Bank.
+    @param {string}  accountNumber - 10-digit NUBAN account number to be transferred to. Must be an account that has been looked up and vetted
+    to be transferred to.
+
+    @param {string} accountName - The account name tied to the account number you are transferring to which you've looked up with the accountLookup method.
+    @param {string} currencyId - Takes only the value NGN
+    @param {string} remark - A unique remark that will be sent with the transfer
+   */
+  public async transferFunds(
+    transactionData: FundsTransferProps
+  ): Promise<FundsTransferReponseProps> {
+    if (!transactionData || typeof transactionData !== "object")
+      throw new Error("Validation Error! Invalid transaction data");
+
+    const dataToSend = {
+      remark: transactionData.remark,
+      bank_code: transactionData.bankCode,
+      currency_id: transactionData.currencyId,
+      amount: transactionData.amount,
+      account_number: transactionData.accountNumber,
+      transaction_reference: transactionData.transactionReference,
+      account_name: transactionData.accountName,
+    };
+
+    try {
+      const squadResponse = await this.Axios.post(
+        `${this.baseTransferUrl}/transfer`,
         dataToSend
       );
 
