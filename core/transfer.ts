@@ -75,18 +75,18 @@ export default abstract class SquadTransfer extends SquadVirtualAccount {
     For instance: If my Squad Merchant ID is SBABCKDY and i want to create a transaction ref for my transfer, then I will have something like: 
     "transactionReference":"SBABCKDY_12345".
 
-    @param {string} transactionReference - Unique Transaction Reference used to initiate a transfer.
+    @param {string} transactionData.transactionReference - Unique Transaction Reference used to initiate a transfer.
      Please ensure your merchantId to the transaction reference you're creating. This
      is compulsory as it will throw an error if you don't append it.
 
-    @param {string} amount - Amount to be transferred. Amount is in Kobo
-    @param {string} bankCode - Unique NIP code that identifies a Bank.
-    @param {string}  accountNumber - 10-digit NUBAN account number to be transferred to. Must be an account that has been looked up and vetted
+    @param {string} transactionData.amount - Amount to be transferred. Amount is in Kobo
+    @param {string} transactionData.transactionDataebankCode - Unique NIP code that identifies a Bank.
+    @param {string}  transactionData.accountNumber - 10-digit NUBAN account number to be transferred to. Must be an account that has been looked up and vetted
     to be transferred to.
 
-    @param {string} accountName - The account name tied to the account number you are transferring to which you've looked up with the accountLookup method.
-    @param {string} currencyId - Takes only the value NGN
-    @param {string} remark - A unique remark that will be sent with the transfer
+    @param {string} transactionData.accountName - The account name tied to the account number you are transferring to which you've looked up with the accountLookup method.
+    @param {string} transactionData.currencyId - Takes only the value NGN
+    @param {string} transactionData.remark - A unique remark that will be sent with the transfer
    */
   public async transferFunds(
     transactionData: FundsTransferRequestProps

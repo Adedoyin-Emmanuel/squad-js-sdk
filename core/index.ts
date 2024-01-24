@@ -1,11 +1,11 @@
-import SquadVirtualAccount from "./virtual-account";
+import SquadTransfer from "./transfer";
 
 /**
  * @summary
  * Squad JavaScript SDK
  * Built with ❣️ by Adedoyin Emmanuel Adeniyi https://github.com/adedoyin-emmanuel/
  */
-export class CreateSquadClient extends SquadVirtualAccount {
+export class CreateSquadClient extends SquadTransfer {
   constructor(
     publicKey: string,
     privateKey: string,
