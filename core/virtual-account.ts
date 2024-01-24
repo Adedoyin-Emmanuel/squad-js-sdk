@@ -19,10 +19,10 @@ import type { BaseResponseProps } from "./interfaces/base-response";
 
 export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
-   * @summary This is the sub class for the Squad Virtual Account Module
-   * @param {string} publicKey - Squad public key
-   * @param {string} privateKey - Squad private key
-   * @param {string} environment - The environment to use for the client. If not specified, defaults to "development".
+   * @desc This is the sub class for the Squad Virtual Account Module
+   * @arg {string} publicKey - Squad public key
+   * @arg {string} privateKey - Squad private key
+   * @arg {string} environment - The environment to use for the client. If not specified, defaults to "development".
    */
 
   private baseVirtualAccountUrl: string;
@@ -37,23 +37,21 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This method is used to create virtual account for individuals/customer on your platform. Please note that there is a strict validation of the BVN against the names, Date of Birth and Phone Number. (B2C)
-
-   * @param [transactionData] - The data for the transaction.
-   * @param {string} [transactionData.firstName] - The first name of the customer
-   * @param {string} [transactionData.lastName] - The last name of the customer
-   * @param {string} [transactionData.middleName] - The middle name of the customer
-   * @param {string} [transactionData.mobileNumber] - The mobile number of the customer
-   * @param {Date} [transactionData.dob] - The date of birth of the customer  mm/dd/yyyy
-   * @param {string} [transactionData.email] - The email address of the customer 
-   * @param {string} [transactionData.bvn] - The BVN  of the customer 
-   * @param {string} [transactionData.gender] - The gender of the customer
-   * @param {string} [transactionData.address] - The address of the customer
-   * @param {string} [transactionData.customerIdentifier] - The uniquie identifier given by merchant
-   * @param {string} [transactionData.beneficiaryAccount] - Beneficiary Account is the 10 Digit Bank Account Number (GTBank) provided by the Merchant where money sent to this Virtual account is paid into. Please note that when beneficiary account is not provided, money paid into this virtual account go into your wallet and will be paid out/settled in T+1 settlement time.
-   * 
+   * @desc This method is used to create virtual account for individuals/customer on your platform. Please note that there is a strict validation of the BVN against the names, Date of Birth and Phone Number. (B2C)
+   * @arg {Object} transactionData - The data for the transaction.
+   * @arg {string} transactionData.firstName - The first name of the customer
+   * @arg {string} transactionData.lastName - The last name of the customer
+   * @arg {string} transactionData.middleName - The middle name of the customer
+   * @arg {string} transactionData.mobileNumber - The mobile number of the customer
+   * @arg {string} transactionData.dob - The date of birth of the customer  mm/dd/yyyy
+   * @arg {string} transactionData.email - The email address of the customer
+   * @arg {string} transactionData.bvn - The BVN  of the customer
+   * @arg {string} transactionData.gender - The gender of the customer
+   * @arg {string} transactionData.address - The address of the customer
+   * @arg {string} transactionData.customerIdentifier - The uniquie identifier given by merchant
+   * @arg {string} transactionData.beneficiaryAccount - Beneficiary Account is the 10 Digit Bank Account Number (GTBank) provided by the Merchant where money sent to this Virtual account is paid into. Please note that when beneficiary account is not provided, money paid into this virtual account go into your wallet and will be paid out/settled in T+1 settlement time.
+   *
    */
-
   public async createVirtualAccount(
     transactionData: VirtualAccountProps
   ): Promise<VirtualAccountResponseProps> {
@@ -88,7 +86,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This method allows you to create virtual accounts for your customers
+   * @desc This method allows you to create virtual accounts for your customers
    * who are businesses and not individuals. That is, these customers are actually
    * businesses (B2B) or other merchants. Please note that due to CBN's Guidelines
    * on validation before account creation as  well as other related Fraud concerns,
@@ -97,12 +95,12 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * for your businesses.
    *
    *
-   * @param transactionData
-   * @param {string} transactionData.bvn - The business bvn
-   * @param {string} transactionData.businessName - The name of the business
-   * @param {string} transactionData.customerIdentifier - The unique identifier given to the customer
-   * @param {string} transactionData.mobileNumber - The mobile number of the business
-   * @param {string} transactionData.beneficiaryAccount -This is the 10 Digit Bank Account Number (GTBank) where money sent to this Virtual account is paid into. Please note that when beneficiary account is not provided, money paid into this virtual account go into your wallet and will be paid out/settled in T+1 settlement time.
+   * @arg transactionData
+   * @arg {string} transactionData.bvn - The business bvn
+   * @arg {string} transactionData.businessName - The name of the business
+   * @arg {string} transactionData.customerIdentifier - The unique identifier given to the customer
+   * @arg {string} transactionData.mobileNumber - The mobile number of the business
+   * @arg {string} transactionData.beneficiaryAccount -This is the 10 Digit Bank Account Number (GTBank) where money sent to this Virtual account is paid into. Please note that when beneficiary account is not provided, money paid into this virtual account go into your wallet and will be paid out/settled in T+1 settlement time.
    */
   public async createBusinessVirtualAccount(
     transactionData: BusinessVirtualAccountProps
@@ -131,7 +129,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This method allows you retrieve all your missed webhook transactions
+   * @desc This method allows you retrieve all your missed webhook transactions
    * and use it to update your record without manual input.The top 100 missed
    * webhook will always be returned by default and it This flow involves
    * integration of two(2) APIs Once you have updated the record of a particular
@@ -144,8 +142,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    *
    *
    *
-   * @param {number} page - The page you are on
-   * @param {number} perPage - The number of records you want to appear on a page
+   * @arg {number} page - The page you are on
+   * @arg {number} perPage - The number of records you want to appear on a page
    *
    */
   public async getWebhookErrorLog(
@@ -174,12 +172,12 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This API enables you delete a processed transaction from the webhook error log
+   * @desc This API enables you delete a processed transaction from the webhook error log
    * When you delete the transaction from the log, it won't be returned to you again.
    * Failure to delete a transaction will result in the transaction being returned to
    * you in the top 100 transactions returned each time you retry
    *
-   * @param {string} transactionRef
+   * @arg {string} transactionRef
    */
   public async deleteWebhookErrorLog(
     transactionRef: string
@@ -199,11 +197,11 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This is a method to query the transactions a customer has made.
+   * @desc This is a method to query the transactions a customer has made.
    * This is done using the customer's identifier which was passed when
    * creating the virtual account.
    *
-   * @param customerIdentifier
+   * @arg {string} customerIdentifier
    */
   public async findCustomerTransactionById(
     customerIdentifier: string
@@ -225,9 +223,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This is a method to query all the merchant transactions over a period of time.
-   *
-   * @params None
+   * @desc This is a method to query all the merchant transactions over a period of time.
+   * @args None
    *
    */
   public async findAllMerchantTransactions(): Promise<MerchantTransactionResponseProps> {
@@ -243,19 +240,19 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /***
-   * @summary This method allows you query all transactions and filter using multiple parameters
+   * @desc This method allows you query all transactions and filter using multiple parameters
    *  like virtual account number, start and end dates, customer Identifier etc
    *
-   * @param filters
-   * @param {number} [filters.page] - The page number to display
-   * @param {number} [filters.perPage] - The number of records per page
-   * @param {number} [filters.virtualAccount] - The virtual account, a 10 digit virtual account number
-   * @param {string} [filters.customerIdentifier] - The unique customer identifier used to identify a customer account
-   * @param {date} [filters.startDate] - The start date
-   * @param {date} [filters.endDate] - The end date
-   * @param {string} [filters.transacationReference] - The transaction reference
-   * @param {string} [filters.sessionId] - The session identifier of the transaction
-   * @param {string} [filters.dir] - Takes 2 possible values ASC (Ascending) or DESC (Descending order)
+   * @arg filters
+   * @arg {number} [filters.page] - The page number to display
+   * @arg {number} [filters.perPage] - The number of records per page
+   * @arg {number} [filters.virtualAccount] - The virtual account, a 10 digit virtual account number
+   * @arg {string} [filters.customerIdentifier] - The unique customer identifier used to identify a customer account
+   * @arg {date} [filters.startDate] - The start date
+   * @arg {date} [filters.endDate] - The end date
+   * @arg {string} [filters.transacationReference] - The transaction reference
+   * @arg {string} [filters.sessionId] - The session identifier of the transaction
+   * @arg {string} [filters.dir] - Takes 2 possible values ASC (Ascending) or DESC (Descending order)
    *
    */
   public async findAllMerchantTransactionsByFilter(
@@ -289,8 +286,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This method retrives the details of a customer using the Virtual Account Number
-   * @param virtualAccountNumber
+   * @desc This method retrives the details of a customer using the Virtual Account Number
+   * @arg {string} virtualAccountNumber
    */
   public async findCustomerByVirtualAccountNumber(
     virtualAccountNumber: string
@@ -312,8 +309,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This is method retrives the details of a customer'svirtual account using the Customer Identifier
-   * @param virtualAccountNumber
+   * @desc This is method retrives the details of a customer'svirtual account using the Customer Identifier
+   * @arg {string} customerIdentifier
    */
   public async getCustomerVirtualAccountDetails(
     customerIdentifier: string
@@ -335,10 +332,10 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This is method to update customer's BVN and Unfreeze transaction
+   * @desc This is method to update customer's BVN and Unfreeze transaction
    * @param {string} customerBvn - The bank verfication number of the customer
-   * @param {string} customerIdentifier - The unique number given to customer by merchant
-   * @param {string} phoneNumber - The phone number of the customer
+   * @arg {number} {string} customerIdentifier - The unique number given to customer by merchant
+   * @arg {number} {string} phoneNumber - The phone number of the customer
    *
    *
    * @returns {}
@@ -382,17 +379,17 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
   /**
    * @summary This is a method for merchants to query and retrieve all their virtual account.
-   * @param page - The number of pages
-   * @param perPage - The number of Accounts to be returned per page
-   * @param startDate - The startDate in format YY-MM-DD
-   * @param endDate - - The endDate in format YY-MM-DD
+   * @arg {number} page - The number of pages
+   * @arg {number} perPage - The number of Accounts to be returned per page
+   * @arg {string} startDate - The startDate in format YY-MM-DD
+   * @arg {string} endDate - - The endDate in format YY-MM-DD
    */
 
   public async findAllMerchantVirtualAccounts(
     page?: number,
     perPage?: number,
-    startDate?: Date,
-    endDate?: Date
+    startDate?: string,
+    endDate?: string
   ): Promise<MerchantVirtualAccountResponseProps> {
     if (
       !page ||
@@ -426,9 +423,9 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This method is used to update beneficiary account
-   * @param {string} beneficiaryAccount -The 10 digit valid NUBAN account number
-   * @param {string} virtualAccountNumber  - The virtual account number whose beneficiary account is to be updated
+   * @desc This method is used to update beneficiary account
+   * @arg {string} beneficiaryAccount -The 10 digit valid NUBAN account number
+   * @arg {string} virtualAccountNumber  - The virtual account number whose beneficiary account is to be updated
    */
   public async updateBeneficiaryAccount(
     beneficiaryAccount: string,
@@ -462,9 +459,9 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @summary This method allows you to simulate payment
-   * @param virtualAccountNumber - The virtual account of customer that wants to make payment
-   * @param amount - Simulated amount
+   * @desc This method allows you to simulate payment
+   * @arg {string} virtualAccountNumber - The virtual account of customer that wants to make payment
+   * @arg {number} amount - Simulated amount
    */
   public async simulateVirtualAccountPayment(
     virtualAccountNumber: string,
