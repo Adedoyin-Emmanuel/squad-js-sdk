@@ -13,6 +13,7 @@ import type {
   FindCustomerResponseProps,
   CustomerDetailsResponseProps,
   MerchantVirtualAccountResponseProps,
+  BeneficiaryAccountResponseProps,
 } from "./interfaces/virtual-account.interface";
 import type { BaseResponseProps } from "./interfaces/base-response";
 
@@ -392,7 +393,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     perPage?: number,
     startDate?: Date,
     endDate?: Date
-  ): Promise<any> {
+  ): Promise<MerchantVirtualAccountResponseProps> {
     if (
       !page ||
       !perPage ||
@@ -416,6 +417,42 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
       const squadResponse = await this.Axios.get(
         `${this.baseVirtualAccountUrl}/merchant/accounts`,
         dataToSend as any
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This method is used to update beneficiary account
+   * @param {string} beneficiaryAccount -The 10 digit valid NUBAN account number
+   * @param {string} virtualAccountNumber  - The virtual account number whose beneficiary account is to be updated
+   */
+  public async updateBeneficiaryAccount(
+    beneficiaryAccount: string,
+    virtualAccountNumber: string
+  ): Promise<BeneficiaryAccountResponseProps> {
+    if (
+      !beneficiaryAccount ||
+      !virtualAccountNumber ||
+      typeof beneficiaryAccount !== "string" ||
+      typeof virtualAccountNumber !== "string"
+    )
+      throw new Error(
+        "Validation error! Beneficiary Account and Virtual Account Number muse be a string"
+      );
+
+    const dataToSend = {
+      beneficiary_account: beneficiaryAccount,
+      virtual_account_number: virtualAccountNumber,
+    };
+
+    try {
+      const squadResponse = await this.Axios.patch(
+        `${this.baseVirtualAccountUrl}/update/beneficiary/account`,
+        dataToSend
       );
 
       return squadResponse.data;

@@ -208,3 +208,13 @@ export interface MerchantVirtualAccountProps {
 export interface MerchantVirtualAccountResponseProps extends BaseResponseProps {
   data: MerchantVirtualAccountProps[];
 }
+
+export interface BeneficiaryAccountResponseProps extends BaseResponseProps {
+  data: {
+    first_name: string;
+    last_name: string;
+    virtual_account_number: string;
+    beneficiary_account: string;
+    customer_identifier: string;
+  };
+}
