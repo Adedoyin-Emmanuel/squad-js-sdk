@@ -16,7 +16,6 @@ import type {
   BeneficiaryAccountResponseProps,
 } from "./interfaces/virtual-account.interface";
 import type { BaseResponseProps } from "./interfaces/base-response";
-import { isThrowStatement } from "typescript";
 
 export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
