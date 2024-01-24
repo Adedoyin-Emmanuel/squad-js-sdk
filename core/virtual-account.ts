@@ -378,4 +378,49 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
       throw Error(error);
     }
   }
+
+  /**
+   * @summary This is a method for merchants to query and retrieve all their virtual account.
+   * @param page - The number of pages
+   * @param perPage - The number of Accounts to be returned per page
+   * @param startDate - The startDate in format YY-MM-DD
+   * @param endDate - - The endDate in format YY-MM-DD
+   */
+
+  public async findAllMerchantVirtualAccounts(
+    page?: number,
+    perPage?: number,
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<any> {
+    if (
+      !page ||
+      !perPage ||
+      !startDate ||
+      !endDate ||
+      typeof page !== "number" ||
+      typeof perPage !== "number"
+    )
+      throw new Error(
+        "Validation error! Page, PerPage, StartDate or EndDate must be of valid data type"
+      );
+
+    const dataToSend = {
+      page,
+      perPage,
+      startDate,
+      endDate,
+    };
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/merchant/accounts`,
+        dataToSend as any
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
 }
