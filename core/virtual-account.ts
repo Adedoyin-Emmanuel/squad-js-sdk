@@ -16,6 +16,7 @@ import type {
   BeneficiaryAccountResponseProps,
 } from "./interfaces/virtual-account.interface";
 import type { BaseResponseProps } from "./interfaces/base-response";
+import { isThrowStatement } from "typescript";
 
 export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
@@ -452,6 +453,37 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     try {
       const squadResponse = await this.Axios.patch(
         `${this.baseVirtualAccountUrl}/update/beneficiary/account`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      throw Error(error);
+    }
+  }
+
+  /**
+   * @summary This method allows you to simulate payment
+   * @param virtualAccountNumber - The virtual account of customer that wants to make payment
+   * @param amount - Simulated amount
+   */
+  public async simulateVirtualAccountPayment(
+    virtualAccountNumber: string,
+    amount?: number
+  ): Promise<BaseResponseProps> {
+    if (!virtualAccountNumber || typeof virtualAccountNumber !== "string")
+      throw new Error(
+        "Validation error! Virtual account number must be a string"
+      );
+
+    const dataToSend = {
+      virtual_account_number: virtualAccountNumber,
+      amount,
+    };
+
+    try {
+      const squadResponse = await this.Axios.post(
+        `${this.baseVirtualAccountUrl}/simulate/payment`,
         dataToSend
       );
 

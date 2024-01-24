@@ -41,6 +41,7 @@ export default abstract class SquadBaseClient {
       baseURL: this.baseUrl,
       headers: {
         Authorization: `Bearer ${this.privateKey}`,
+        "Content-Type": "application/json",
       },
     });
   }
