@@ -1,7 +1,7 @@
 import SquadTransfer from "./transfer";
 
 /**
- * @summary
+ * @description
  * Squad JavaScript SDK
  * Built with ❣️ by Adedoyin Emmanuel Adeniyi https://github.com/adedoyin-emmanuel/
  */

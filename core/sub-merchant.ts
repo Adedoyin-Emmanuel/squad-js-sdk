@@ -6,10 +6,10 @@ import type {
 
 export default abstract class SquadSubMerchant extends SquadPayment {
   /**
-   * @summary This is the sub class for the Squad Sub-Merchant Module
-   * @param {string} publicKey - Squad public key
-   * @param {string} privateKey - Squad private key
-   * @param {string} environment - The environment to use for the client. If not specified, defaults to "development".
+   * @desc This is the sub class for the Squad Sub-Merchant Module
+   * @arg {string} publicKey - Squad public key
+   * @arg {string} privateKey - Squad private key
+   * @arg {string} environment - The environment to use for the client. If not specified, defaults to "development".
    */
 
   private baseSubMerchantUrl: string;
@@ -23,13 +23,13 @@ export default abstract class SquadSubMerchant extends SquadPayment {
   }
 
   /**
-   * @summary This method allows you to be profiled as an aggregator and also create sub-merchants dynamically under your account.
-   * @param [transactionData] - The data for the transaction.
-   * @param {string} [transactionData.displayName] - The name of the sub-merchant
-   * @param {string} [transactionData.accountName] - The sub-merchant's settlement bank account name
-   * @param {string} [transactionData.accountNumber] - The sub-merchant's account number
-   * @param {string} [transactionData.bankCode] - The sub-merchant's settlement bank code
-   * @param {string} [transactionData.bankName] - The sub-merchant's settlement bank name eg GTBank
+   * @desc This method allows you to be profiled as an aggregator and also create sub-merchants dynamically under your account.
+   * @arg [transactionData] - The data for the transaction.
+   * @arg {string} [transactionData.displayName] - The name of the sub-merchant
+   * @arg {string} [transactionData.accountName] - The sub-merchant's settlement bank account name
+   * @arg {string} [transactionData.accountNumber] - The sub-merchant's account number
+   * @arg {string} [transactionData.bankCode] - The sub-merchant's settlement bank code
+   * @arg {string} [transactionData.bankName] - The sub-merchant's settlement bank name eg GTBank
    */
 
   public async createSubMerchant(

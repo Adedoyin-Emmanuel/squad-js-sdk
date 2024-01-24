@@ -9,15 +9,15 @@ import type {
 } from "./interfaces/payment.interface";
 
 /**
- * @summary Payment Base Class
+ * @desc Payment Base Class
  * @extends SquadBaseClient
  */
 export default abstract class  SquadPayment extends SquadBaseClient {
   /**
-   * @summary This is the sub class for the Squad Payment Module
-   * @param {string} publicKey - Squad public key
-   * @param {string} privateKey - Squad private key
-   * @param {string} environment - The environment to use for the client. If not specified, defaults to "development".
+   * @desc This is the sub class for the Squad Payment Module
+   * @arg {string} publicKey - Squad public key
+   * @arg {string} privateKey - Squad private key
+   * @arg {string} environment - The environment to use for the client. If not specified, defaults to "development".
    */
 
   private basePaymentUrl: string;
@@ -30,24 +30,24 @@ export default abstract class  SquadPayment extends SquadBaseClient {
     this.basePaymentUrl = "/transaction";
   }
   /**
-   * @summary This method allows you to initiate a transaction
+   * @desc This method allows you to initiate a transaction
    * by making calls from your server which returns a URL that
    * when visited will call up SQUAD payment modal.
    *
    * @function
-   * @param {object} transactionData - The data for the transaction.
-   * @param {string} transactionData.amount - The amount you are debiting customer (expressed in the lowest currency value - kobo& cent).  10000 = 100NGN for Naira Transactions.
-   * @param {string} transactionData.email - The email address of the client making payment
-   * @param {string} transactionData.initiateType - This states the method by which the transaction is initiated. At the moment, this can only take the value "inline". @see https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment
-   * @param {String} transactionData.currency - The currency you want the amount to be charged in. Allowed value is either NGN or USD.
-   * @param {string} [transactionData.transactionRef] - An alphanumeric string that uniquely identifies a transaction
-   * @param {string} [transactionData.customerName] - The name of the customer carrying out the transaction
-   * @param {string} [transactionData.callbackUrl] - The URL to redirect the user to after transaction is completed
-   * @param {array} [transactionData.paymentChannels] An array of payment channels to control what channels you want to make available for the user to make a payment with. Available channels include; [ 'card' , 'bank' , 'ussd' , 'transfer' ]]
-   * @param {object} [transactionData.metadata] Object that contains any additional information that you want to record with the transaction. The custom fields in the object will be returned via webhook and the payment verification endpoint.
-   * @param {boolean} [transactionData.passCharge] This takes two possible values: True or False. It is set to False by default. When set to True, the charges on the transaction is computed and passed on to the customer(payer). But when set to False, the charge is passed to the merchant and will be deducted from the amount to be settled to the merchant.
-   * @param {string} [transactionData.subMerchantId] This is the ID of a merchant that was created by an aggregator which allows the aggregator initiate a transaction on behalf of the submerchant. This parameter is an optional field that is passed only by a registered aggregator.
-   * @param {boolean} [tokenizeCard] This is to tokenize a card. Adding this to the initiate payload when calling the initiatePayment method,  will automatically be tokenize the card. The unique token code will automatically be added to the webhook notification that will be received after payment. @see https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment
+   * @arg {object} transactionData - The data for the transaction.
+   * @arg {string} transactionData.amount - The amount you are debiting customer (expressed in the lowest currency value - kobo& cent).  10000 = 100NGN for Naira Transactions.
+   * @arg {string} transactionData.email - The email address of the client making payment
+   * @arg {string} transactionData.initiateType - This states the method by which the transaction is initiated. At the moment, this can only take the value "inline". @see https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment
+   * @arg {String} transactionData.currency - The currency you want the amount to be charged in. Allowed value is either NGN or USD.
+   * @arg {string} [transactionData.transactionRef] - An alphanumeric string that uniquely identifies a transaction
+   * @arg {string} [transactionData.customerName] - The name of the customer carrying out the transaction
+   * @arg {string} [transactionData.callbackUrl] - The URL to redirect the user to after transaction is completed
+   * @arg {array} [transactionData.paymentChannels] An array of payment channels to control what channels you want to make available for the user to make a payment with. Available channels include; [ 'card' , 'bank' , 'ussd' , 'transfer' ]]
+   * @arg {object} [transactionData.metadata] Object that contains any additional information that you want to record with the transaction. The custom fields in the object will be returned via webhook and the payment verification endpoint.
+   * @arg {boolean} [transactionData.passCharge] This takes two possible values: True or False. It is set to False by default. When set to True, the charges on the transaction is computed and passed on to the customer(payer). But when set to False, the charge is passed to the merchant and will be deducted from the amount to be settled to the merchant.
+   * @arg {string} [transactionData.subMerchantId] This is the ID of a merchant that was created by an aggregator which allows the aggregator initiate a transaction on behalf of the submerchant. This argeter is an optional field that is passed only by a registered aggregator.
+   * @arg {boolean} [tokenizeCard] This is to tokenize a card. Adding this to the initiate payload when calling the initiatePayment method,  will automatically be tokenize the card. The unique token code will automatically be added to the webhook notification that will be received after payment. @see https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment
    * @returns {object} The response from the Squad API
    * @throws {Error} Throws an error if validation fails.
    */
@@ -87,12 +87,12 @@ export default abstract class  SquadPayment extends SquadBaseClient {
   }
 
   /**
-   * @summary This allows you charge a card using the token generated during the initiate transaction which was sent via webhook
+   * @desc This allows you charge a card using the token generated during the initiate transaction which was sent via webhook
    * @function
-   * @param transactionData
-   * @param {number} transactionData.amount - The amount to charge
-   * @param {string} transactionData.tokenId - The unique tokenization code for each card transaction and it is returned via the webhook for first charge on the card.
-   * @param {string} [transaction.transactionRef] - Optional The transaction reference string. . If you do not pass this parameter, Squad will generate a unique reference for you.
+   * @arg transactionData
+   * @arg {number} transactionData.amount - The amount to charge
+   * @arg {string} transactionData.tokenId - The unique tokenization code for each card transaction and it is returned via the webhook for first charge on the card.
+   * @arg {string} [transaction.transactionRef] - Optional The transaction reference string. . If you do not pass this argeter, Squad will generate a unique reference for you.
    * @returns {object} The Reponse from Squad API
    */
   public async chargeCard(
@@ -120,10 +120,10 @@ export default abstract class  SquadPayment extends SquadBaseClient {
   }
 
   /**
-   * @summary This is method allows you to query the status of a particular
+   * @desc This is method allows you to query the status of a particular
    * transaction using the unique transaction reference attached to the transaction.
    * @function
-   * @param {string} transactionRef - The unique transaction reference attached to the transaction.
+   * @arg {string} transactionRef - The unique transaction reference attached to the transaction.
    */
   public async verifyTransaction(
     transactionRef: VerifyTransactionProps | string

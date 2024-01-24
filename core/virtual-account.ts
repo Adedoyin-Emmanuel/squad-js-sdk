@@ -224,7 +224,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
   /**
    * @desc This is a method to query all the merchant transactions over a period of time.
-   * @args None
+   * @arg None
    *
    */
   public async findAllMerchantTransactions(): Promise<MerchantTransactionResponseProps> {
