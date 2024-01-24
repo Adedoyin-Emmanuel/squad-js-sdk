@@ -10,3 +10,4 @@ squad.updateCustomerBvn("1245", "CCC", "07061620301").then((data) => {
   console.log(data.status);
   console.log(data.message);
 });
+
