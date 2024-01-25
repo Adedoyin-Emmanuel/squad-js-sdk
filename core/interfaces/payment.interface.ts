@@ -79,3 +79,47 @@ export interface VerifyTransactionResponseProps extends BaseResponseProps {
     plan_code: null;
   };
 }
+
+export interface PaymentLinkProps {
+  name: string;
+  hash: string;
+  linkStatus: 0 | 1;
+  expireBy: Date;
+  amount: number;
+  currencyId: string | "NGN" | "USD";
+  description: string;
+  redirectLink?: string;
+  returnMsg?: string;
+}
+
+export interface PaymentLinkResponseProps extends BaseResponseProps {
+  data: {
+    name: string;
+    link_type: string;
+    hash: string;
+    description: string;
+    currencies: any | null;
+    redirect_link: string;
+    return_msg: string;
+    support_email: any | null;
+    support_phone: any | null;
+    terms_condition: any | null;
+    return_policy: any | null;
+    pickup_location: any | null;
+    expire_by: Date;
+    merchant_id: string;
+    link_status: 1 | 0;
+    extra: any | null;
+    createdAt: Date;
+    updatedAt: Date;
+    archivedAt: any | null;
+    image_id: any;
+    image: any;
+    amounts: [
+      {
+        amount: number;
+        currency_id: string | "NGN" | "USD";
+      }
+    ];
+  };
+}

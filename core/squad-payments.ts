@@ -6,6 +6,8 @@ import type {
   ChargeCardResponseProps,
   VerifyTransactionProps,
   VerifyTransactionResponseProps,
+  PaymentLinkResponseProps,
+  PaymentLinkProps,
 } from "./interfaces/payment.interface";
 
 /**
@@ -135,6 +137,60 @@ export default abstract class SquadPayment extends SquadBaseClient {
     try {
       const squadResponse = await this.Axios.get(
         `${this.basePaymentUrl}/verify/${transactionRef}`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
+    }
+  }
+
+  /**
+   * @desc This method is used to create a simple payment link.
+   * All calls to this end point is to be made using your secret
+   * key gotten from your dashboard.
+   *
+   * @arg transactionData
+   * @arg {string} transactionData.name - The title/name of the payment link
+   * @arg {string} transactionData.hash - The unique string that identifies each payment link (cannot exceed 255 characters)
+   * @arg {linkStatus} transactionData.linkStatus - This is the status of the payment link. It can either be active or inactive. 0 for inactive and 1 for active.
+   * @arg {Date} transactionData.expireBy - This is the date the payment link expires. Sample: 2021-04-26T11:22:08.587Z
+   * @arg {number} transactionData.amount - The amount to be paid via the payment link
+   * @arg {string} transactionData.currencyId - The currency to be used for the payment link. Allowed values are NGN and USD
+   * @arg {string} transactionData.description - This describes what the payment link does
+   * @arg {string} transactionData.redirectLink - This is the URL to be redirected to after the payment is completed. If not provided
+   * The URL on the dashboard will be used.
+   * @arg {string} transactionData.returnMsg - The message to be displayed to the customer after the payment via the link.
+   */
+  public async createPaymentLink(
+    transactionData: PaymentLinkProps
+  ): Promise<PaymentLinkResponseProps> {
+    if (typeof transactionData !== "object")
+      throw new Error("Validation Error! Invalid transaction data.");
+
+    const dataToSend = {
+      name: transactionData.name,
+      hash: transactionData.hash,
+      link_status: transactionData.linkStatus,
+      expire_by: transactionData.expireBy,
+      amount: transactionData.amount,
+      currency_id: transactionData.currencyId,
+      description: transactionData.description,
+      redirect_link: transactionData.redirectLink,
+      return_msg: transactionData.returnMsg,
+    };
+
+    try {
+      /**
+       * @summary You might've noticed I didn't use the this.basePaymentUrl
+       * Well, this method isn't part of the payment module. Actually this endpoint isn't grouped together with their payment endpoint.
+       * But it makes more sense to add it to the SDK. Since the class is SquadPayment class, then anything related to payment should be there.
+       * You get the vibe 😀
+       */
+      const squadResponse = await this.Axios.post(
+        `/payment_link/otp`,
+        dataToSend
       );
 
       return squadResponse.data;
