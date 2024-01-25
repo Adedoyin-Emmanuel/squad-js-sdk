@@ -33,7 +33,7 @@ export default abstract class SquadBaseClient {
     this.privateKey = privateKey;
     this.environment = environment || "development";
     this.baseUrl =
-      this.environment == "development"
+      this.environment == "development" || this.environment == "test"
         ? "https://sandbox-api-d.squadco.com"
         : "https://api-d.squadco.com";
 
