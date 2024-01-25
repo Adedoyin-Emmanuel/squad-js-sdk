@@ -15,7 +15,7 @@ export interface VirtualAccountProps {
 }
 
 export interface VirtualAccountResponseProps extends BaseResponseProps {
-  success: true;
+  success: boolean;
   message: string;
   data: {
     first_name: string;
@@ -216,5 +216,42 @@ export interface BeneficiaryAccountResponseProps extends BaseResponseProps {
     virtual_account_number: string;
     beneficiary_account: string;
     customer_identifier: string;
+  };
+}
+
+export interface PoolCountResponseProps extends BaseResponseProps {
+  data: {
+    count_dynamic_virtual_account: number;
+  };
+}
+
+export interface DynamicAccountTransactionProps {
+  is_blocked: boolean;
+  account_name: string;
+  account_number: string;
+  expected_amount: string;
+  expires_at: Date;
+  transaction_reference: string;
+  bank: string;
+  currency: string | "NGN";
+}
+
+export interface DynamicAccountTransactionResponseProps
+  extends BaseResponseProps {
+  data: DynamicAccountTransactionProps;
+}
+
+export interface DynamicVirtualAccountProps {
+  transaction_status: string;
+  transaction_reference: string;
+  created_at: Date;
+  refund: boolean;
+}
+
+export interface ReQueryDynamicVirtualAccountResponseProps
+  extends BaseResponseProps {
+  data: {
+    count: number;
+    rows: DynamicVirtualAccountProps[];
   };
 }

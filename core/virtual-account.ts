@@ -14,6 +14,9 @@ import type {
   CustomerDetailsResponseProps,
   MerchantVirtualAccountResponseProps,
   BeneficiaryAccountResponseProps,
+  PoolCountResponseProps,
+  DynamicAccountTransactionResponseProps,
+  ReQueryDynamicVirtualAccountResponseProps,
 } from "./interfaces/virtual-account.interface";
 import type { BaseResponseProps } from "./interfaces/base-response";
 
@@ -469,13 +472,16 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @desc This method allows you to simulate payment
+   * @desc This method allows you to simulate payment. ⚠️ This should be done on test environment only !!
+   *
    * @arg {string} virtualAccountNumber - The virtual account of customer that wants to make payment
    * @arg {number} amount - Simulated amount
+   * @arg {boolean} dva - True
    */
   public async simulateVirtualAccountPayment(
     virtualAccountNumber: string,
-    amount?: number
+    amount?: number,
+    dva: boolean = false
   ): Promise<BaseResponseProps> {
     if (!virtualAccountNumber || typeof virtualAccountNumber !== "string")
       throw new Error(
@@ -497,6 +503,140 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
       return error.response.data;
+    }
+  }
+
+  /**
+   * @desc This method allows you create and assign dynamic virtual accounts
+   * to your pool. Only one account is generated per request.
+   *
+   * @arg None
+   */
+  public async createDynamicVirtualAccount(): Promise<BaseResponseProps> {
+    try {
+      const squadResponse = await this.Axios.post(
+        `${this.baseVirtualAccountUrl}/create-dynamic-virtual-account`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
+    }
+  }
+
+  /**
+   * @desc This method gives you the total count of the virtual accounts you have in your pool.
+   *
+   * @arg None
+   */
+  public async getPoolCount(): Promise<PoolCountResponseProps> {
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/count-dynamic-virtual-accounts`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response?.data;
+    }
+  }
+
+  /**
+   * @desc This method allows you generate a Dynamic Virtual Account
+   * to be assigned to a customer. This is used to initiate a transaction.
+   *
+   * @arg {number} amount  - The amount is in Kobo
+   * @arg {number} duration - The time allowed before an account/transaction is expired. Duration is in seconds (ie) 60 = 1 minute
+   * @arg {string} email - The valid email address to notify customers
+   * @arg {string} transactionRef - A unique transaction reference that identifies the transaction on your system
+   */
+  public async initiateDynamicVirtualAccountTransaction(
+    amount: number,
+    duration: number,
+    email: string,
+    transactionRef: string
+  ): Promise<DynamicAccountTransactionResponseProps> {
+    if (!amount || !duration || !email || !transactionRef)
+      throw new Error("Validation Error! Invalid transaction data");
+
+    const dataToSend = {
+      amount,
+      duration,
+      email,
+      transaction_ref: transactionRef,
+    };
+    try {
+      const squadResponse = await this.Axios.post(
+        `${this.baseVirtualAccountUrl}/initiate-dynamic-virtual-account`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response?.data;
+    }
+  }
+
+  /**
+   * @desc This method allows you re-query a transaction to see its status.
+   * It returns an array of all transaction attempts made including those that returned
+   *  as a mismatch, those that expired and the successful transaction.
+   * Ultimately all expired and mismatched transactions will eventually be refunded.
+   * @param transactionRef - Merchant's transaction reference passed when initiating / generating the dynamic virtual account
+   */
+  public async reQueryDynamicVirtualAccountTransaction(
+    transactionRef: string
+  ): Promise<ReQueryDynamicVirtualAccountResponseProps> {
+    if (!transactionRef)
+      throw new Error("Validation Error! Transaction Ref must be a string");
+
+    try {
+      const squadResponse = await this.Axios.get(
+        `${this.baseVirtualAccountUrl}/get-dynamic-account-transactions/${transactionRef}`
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response?.data;
+    }
+  }
+
+  /**
+   *
+   * @param amount - Amount is in Kobo
+   * @param transactionReference - The transaction reference of the already initiated transaction
+   * @param duration - The amount of time before the transaction expires. Duration is in seconds (ie) 60  = 1 min
+   */
+  public async updateDynamicVirtualAccountTransactionAmount(
+    amount: number,
+    transactionReference: string,
+    duration?: number
+  ): Promise<any> {
+    if (!amount || !transactionReference || duration)
+      throw new Error(
+        "Validation Error! Invalid transaction data, please check your function arguments"
+      );
+
+    const dataToSend = {
+      amount,
+      transaction_ref: transactionReference,
+      duration,
+    };
+
+    try {
+      const squadResponse = await this.Axios.patch(
+        `${this.baseVirtualAccountUrl}/update-dynamic-virtual-account-time-and-amount`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response?.data;
     }
   }
 }
