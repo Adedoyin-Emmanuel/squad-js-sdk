@@ -84,7 +84,7 @@ export interface PaymentLinkProps {
   name: string;
   hash: string;
   linkStatus: 0 | 1;
-  expireBy: Date;
+  expireBy: string;
   amount: number;
   currencyId: string | "NGN" | "USD";
   description: string;
@@ -121,5 +121,21 @@ export interface PaymentLinkResponseProps extends BaseResponseProps {
         currency_id: string | "NGN" | "USD";
       }
     ];
+  };
+}
+
+export interface RefundProps {
+  gatewayTransactionRef: string;
+  transactionRef: string;
+  refundType: "Full" | "Partial";
+  reasonForRefund: string;
+  refundAmount?: number;
+}
+
+export interface RefundResponseProps extends BaseResponseProps {
+  data: {
+    gateway_refund_status: string;
+    refund_status: number;
+    refund_reference: string;
   };
 }

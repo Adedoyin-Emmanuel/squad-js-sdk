@@ -8,6 +8,8 @@ import type {
   VerifyTransactionResponseProps,
   PaymentLinkResponseProps,
   PaymentLinkProps,
+  RefundResponseProps,
+  RefundProps,
 } from "./interfaces/payment.interface";
 
 /**
@@ -174,8 +176,12 @@ export default abstract class SquadPayment extends SquadBaseClient {
       hash: transactionData.hash,
       link_status: transactionData.linkStatus,
       expire_by: transactionData.expireBy,
-      amount: transactionData.amount,
-      currency_id: transactionData.currencyId,
+      amounts: [
+        {
+          amount: transactionData.amount,
+          currency_id: transactionData.currencyId,
+        },
+      ],
       description: transactionData.description,
       redirect_link: transactionData.redirectLink,
       return_msg: transactionData.returnMsg,
@@ -188,8 +194,60 @@ export default abstract class SquadPayment extends SquadBaseClient {
        * But it makes more sense to add it to the SDK. Since the class is SquadPayment class, then anything related to payment should be there.
        * You get the vibe 😀
        */
+
+      //console.log(dataToSend);
       const squadResponse = await this.Axios.post(
         `/payment_link/otp`,
+        dataToSend
+      );
+
+      return squadResponse.data;
+    } catch (error: any) {
+      console.warn(error?.response?.data?.message);
+      return error.response.data;
+    }
+  }
+
+  /**
+   *
+   * @arg transactionData
+   * @arg {string} transactionData.gatewayTransactionRef - The unique reference that uniquely identifies the medium
+   * of payment and can be obtained from the webhook notification sent to you.
+   * @arg {string} transactionData.transactionRef - The unique reference that identifies a transaction.
+   * this can be obtained from the dashboard or the webhook notification sent to you.
+   *
+   * @arg {string} transactionData.refundType - This can either be Full or Partial
+   * @arg {string} transactionData.reasonForRefund- Reason for initiating the refund
+   * @arg {number} transactionData.refundAmount - The amount to be refunded. This should be speficified only if the refund type is Partial
+   */
+  public async refund(
+    transactionData: RefundProps
+  ): Promise<RefundResponseProps> {
+    if (typeof transactionData !== "object")
+      throw new Error("Validation Error! Invalid transaction data");
+
+    interface DataToSend {
+      gateway_transaction_ref: string;
+      transaction_ref: string;
+      refund_type: "Full" | "Partial";
+      reason_for_refund: string;
+      refund_amount?: number;
+    }
+
+    const dataToSend: DataToSend = {
+      gateway_transaction_ref: transactionData.gatewayTransactionRef,
+      transaction_ref: transactionData.transactionRef,
+      refund_type: transactionData.refundType,
+      reason_for_refund: transactionData.reasonForRefund,
+    };
+
+    if (transactionData.refundType === "Partial") {
+      dataToSend.refund_amount = transactionData.refundAmount;
+    }
+
+    try {
+      const squadResponse = await this.Axios.post(
+        "/transaction/refund",
         dataToSend
       );
 
