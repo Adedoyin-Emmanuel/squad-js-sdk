@@ -266,7 +266,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   public async findAllMerchantTransactionsByFilter(
     filters: MerchantTransactionFiltersProps
   ): Promise<MerchantTransactionFilterResponseProps> {
-    if (!filters || typeof filters !== "object")
+    if ( typeof filters !== "object")
       throw new Error("Validation error! Invalid filters");
 
     const dataToSend = {
@@ -301,7 +301,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   public async findCustomerByVirtualAccountNumber(
     virtualAccountNumber: string
   ): Promise<FindCustomerResponseProps> {
-    if (!virtualAccountNumber || typeof virtualAccountNumber !== "string")
+    if (typeof virtualAccountNumber !== "string")
       throw new Error(
         "Validation error! Virtual Account Number must be a string"
       );
@@ -358,9 +358,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     phoneNumber: string
   ): Promise<BaseResponseProps> {
     if (
-      !customerBvn ||
-      !customerIdentifier ||
-      !phoneNumber ||
+  
       typeof customerBvn !== "string" ||
       typeof customerIdentifier !== "string" ||
       typeof phoneNumber !== "string"
@@ -397,19 +395,12 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    */
 
   public async findAllMerchantVirtualAccounts(
-    page?: number,
-    perPage?: number,
+    page: number,
+    perPage: number,
     startDate?: string,
     endDate?: string
   ): Promise<MerchantVirtualAccountResponseProps> {
-    if (
-      !page ||
-      !perPage ||
-      !startDate ||
-      !endDate ||
-      typeof page !== "number" ||
-      typeof perPage !== "number"
-    )
+    if (typeof page !== "number" || typeof perPage !== "number")
       throw new Error(
         "Validation error! Page, PerPage, StartDate or EndDate must be of valid data type"
       );
