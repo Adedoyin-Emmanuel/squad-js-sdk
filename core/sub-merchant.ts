@@ -24,12 +24,12 @@ export default abstract class SquadSubMerchant extends SquadPayment {
 
   /**
    * @desc This method allows you to be profiled as an aggregator and also create sub-merchants dynamically under your account.
-   * @arg [transactionData] - The data for the transaction.
-   * @arg {string} [transactionData.displayName] - The name of the sub-merchant
-   * @arg {string} [transactionData.accountName] - The sub-merchant's settlement bank account name
-   * @arg {string} [transactionData.accountNumber] - The sub-merchant's account number
-   * @arg {string} [transactionData.bankCode] - The sub-merchant's settlement bank code
-   * @arg {string} [transactionData.bankName] - The sub-merchant's settlement bank name eg GTBank
+   * @arg transactionData - The data for the transaction.
+   * @arg {string} transactionData.displayName - The name of the sub-merchant
+   * @arg {string} transactionData.accountName - The sub-merchant's settlement bank account name
+   * @arg {string} transactionData.accountNumber - The sub-merchant's account number
+   * @arg {string} transactionData.bankCode - The sub-merchant's settlement bank code
+   * @arg {string} transactionData.bankName - The sub-merchant's settlement bank name eg GTBank
    */
 
   public async createSubMerchant(

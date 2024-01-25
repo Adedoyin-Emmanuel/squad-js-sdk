@@ -159,14 +159,10 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
       (perPage && typeof perPage !== "number")
     )
       throw new Error("Validation error! Page or PerPage must be a number");
-    const dataToSend = {
-      page,
-      perPage,
-    };
+
     try {
       const squadResponse = await this.Axios.get(
-        `${this.baseVirtualAccountUrl}/webhook/logs`,
-        dataToSend as any
+        `${this.baseVirtualAccountUrl}/webhook/logs?page=${page}&perPage=${perPage}`
       );
 
       return squadResponse.data;
@@ -266,7 +262,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   public async findAllMerchantTransactionsByFilter(
     filters: MerchantTransactionFiltersProps
   ): Promise<MerchantTransactionFilterResponseProps> {
-    if ( typeof filters !== "object")
+    if (typeof filters !== "object")
       throw new Error("Validation error! Invalid filters");
 
     const dataToSend = {
@@ -283,8 +279,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
     try {
       const squadResponse = await this.Axios.get(
-        `${this.baseVirtualAccountUrl}/merchant/transactions/all`,
-        dataToSend as any
+        `${this.baseVirtualAccountUrl}/merchant/transactions/all?page=${dataToSend.page}&perPage=${dataToSend.perPage}&virtualAccount=${dataToSend.virtualAccount}&customerIdentifier=${dataToSend.customerIdentifier}&startDate=${dataToSend.startDate}&endDate=${dataToSend.endDate}&transactionReference=${dataToSend.transactionReference}&sessionId=${dataToSend.session_id}&dir=${dataToSend.dir}`
       );
 
       return squadResponse.data;
@@ -345,8 +340,8 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
    * @desc This is method to update customer's BVN and Unfreeze transaction
    * @param {string} customerBvn - The bank verfication number of the customer
-   * @arg {number} {string} customerIdentifier - The unique number given to customer by merchant
-   * @arg {number} {string} phoneNumber - The phone number of the customer
+   * @arg {number} customerIdentifier - The unique number given to customer by merchant
+   * @arg {number} phoneNumber - The phone number of the customer
    *
    *
    * @returns {}
@@ -358,7 +353,6 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     phoneNumber: string
   ): Promise<BaseResponseProps> {
     if (
-  
       typeof customerBvn !== "string" ||
       typeof customerIdentifier !== "string" ||
       typeof phoneNumber !== "string"
@@ -405,17 +399,9 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
         "Validation error! Page, PerPage, StartDate or EndDate must be of valid data type"
       );
 
-    const dataToSend = {
-      page,
-      perPage,
-      startDate,
-      endDate,
-    };
-
     try {
       const squadResponse = await this.Axios.get(
-        `${this.baseVirtualAccountUrl}/merchant/accounts`,
-        dataToSend as any
+        `${this.baseVirtualAccountUrl}/merchant/accounts?page=${page}&perPage=${perPage}&startDate=${startDate}&endDate=${endDate}`
       );
 
       return squadResponse.data;
@@ -435,8 +421,6 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     virtualAccountNumber: string
   ): Promise<BeneficiaryAccountResponseProps> {
     if (
-      !beneficiaryAccount ||
-      !virtualAccountNumber ||
       typeof beneficiaryAccount !== "string" ||
       typeof virtualAccountNumber !== "string"
     )
