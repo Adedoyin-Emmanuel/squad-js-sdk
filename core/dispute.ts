@@ -3,7 +3,7 @@ import SquadWalletBalance from "./wallet-balance";
 
 export default abstract class SquadDisputeResolver extends SquadWalletBalance {
   /**
-   * @desc This is the sub class for the Squad Transfer Module
+   * @desc This is the sub class for the Squad Dispute Resolver Module
    * @arg {string} publicKey - Squad public key
    * @arg {string} privateKey - Squad private key
    * @arg {string} environment - The environment to use for the client. If not specified, defaults to "development".
