@@ -21,7 +21,21 @@ describe("Squad Payment Module Test 🧪", () => {
       });
 
       expect(response.status).toEqual(200);
-      expect(response.success).toBeTruthy();
+      expect(response.success).toBeTrue();
+      expect(response.data).toBeObject();
+    });
+  });
+
+  describe("Charge Card Method", () => {
+    it("Should return a 400 status code and valid response error message", async () => {
+      const response = await squad.chargeCard({
+        amount: 20000,
+        tokenId: "token123456",
+      });
+
+      // I expect the response to be a 400 status code, because the token is invalid
+      expect(response.status).toBe(400);
+      expect(response.success).toBeFalse();
     });
   });
 });
