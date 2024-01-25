@@ -1,4 +1,4 @@
-import SquadTransfer from "./transfer";
+import SquadWalletBalance from "./wallet-balance";
 
 /**
  * @description
@@ -8,7 +8,7 @@ import SquadTransfer from "./transfer";
  * @since 21st of January 2024
  * Built with ❣️ by Adedoyin Emmanuel Adeniyi @see https://github.com/adedoyin-emmanuel/
  */
-export class CreateSquadClient extends SquadTransfer {
+export class CreateSquadClient extends SquadWalletBalance {
   constructor(
     publicKey: string,
     privateKey: string,

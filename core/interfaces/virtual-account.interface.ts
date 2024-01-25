@@ -83,7 +83,7 @@ export interface WebhookPropsResponseProps {
 }
 
 export interface WebhookDeletionResponseProps extends BaseResponseProps {
-  data: string | {};
+  data: string ;
 }
 
 export interface CustomerTransactionProps {

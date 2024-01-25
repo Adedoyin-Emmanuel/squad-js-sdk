@@ -12,7 +12,7 @@ export interface SubMerchantResponseProps extends BaseResponseProps {
   status: number;
   success: true;
   message: string;
-  data?: {
+  data: {
     account_id: string;
   };
 }
