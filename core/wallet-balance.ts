@@ -34,7 +34,7 @@ export default abstract class SquadWalletBalance extends SquadVirtualAccount {
 
     try {
       const squadResponse = await this.Axios.get(
-        `${this.baseWalletBalanceUrl}/balance`
+        `${this.baseWalletBalanceUrl}/balance?currency_id=${currencyId}`
       );
 
       return squadResponse.data;

@@ -6,6 +6,6 @@ const squad = new CreateSquadClient(
   process.env.NODE_ENV as "development" | "production"
 );
 
-squad.getWalletBalance().then((data) => {
+squad.getWalletBalance("NGN").then((data) => {
   console.log(data.data.balance);
 });
