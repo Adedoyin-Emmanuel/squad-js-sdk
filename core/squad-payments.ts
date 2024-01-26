@@ -219,7 +219,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
    * @arg {string} transactionData.refundType - This can either be Full or Partial
    * @arg {string} transactionData.reasonForRefund- Reason for initiating the refund
    * @arg {number} transactionData.refundAmount - The amount to be refunded. This should be speficified only if the refund type is Partial
-   * 
+   *
    * Also this method isn't part of the payment module. Actually this endpoint isn't grouped together with their payment endpoint.
    * But it makes sense to add anything related to payment in the same module
    */
