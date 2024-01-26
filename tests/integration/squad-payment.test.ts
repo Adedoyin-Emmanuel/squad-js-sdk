@@ -98,4 +98,18 @@ describe("Squad Payment Module Test 🧪", () => {
       expect(response.data).toEqual({} as any);
     });
   });
+
+  describe("Refund Method", () => {
+    it("Should return a 404 status code on an invalid transaction or gateway transaction ref", async () => {
+      const response = await squad.refund({
+        gatewayTransactionRef: "12345",
+        reasonForRefund: "I need my funds back",
+        refundType: "Full",
+        transactionRef: "transacton124",
+      });
+
+      expect(response.status).toBe(404);
+      expect(response.success).toBeFalse();
+    });
+  });
 });
