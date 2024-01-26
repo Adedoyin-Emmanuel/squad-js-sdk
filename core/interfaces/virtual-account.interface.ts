@@ -8,7 +8,7 @@ export interface VirtualAccountProps {
   dob: string;
   email: string;
   bvn: string;
-  gender: string | "1" | "2";
+  gender:  "1" | "2";
   address: string;
   customerIdentifier: string;
   beneficiaryAccount?: string;

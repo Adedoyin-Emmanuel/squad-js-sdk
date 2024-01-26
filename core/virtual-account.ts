@@ -49,7 +49,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * @arg {string} transactionData.dob - The date of birth of the customer  mm/dd/yyyy
    * @arg {string} transactionData.email - The email address of the customer
    * @arg {string} transactionData.bvn - The BVN  of the customer
-   * @arg {string} transactionData.gender - The gender of the customer
+   * @arg {string} transactionData.gender - The gender of the customer 1 = Male 2 = Female
    * @arg {string} transactionData.address - The address of the customer
    * @arg {string} transactionData.customerIdentifier - The uniquie identifier given by merchant
    * @arg {string} transactionData.beneficiaryAccount - Beneficiary Account is the 10 Digit Bank Account Number (GTBank) provided by the Merchant where money sent to this Virtual account is paid into. Please note that when beneficiary account is not provided, money paid into this virtual account go into your wallet and will be paid out/settled in T+1 settlement time.
