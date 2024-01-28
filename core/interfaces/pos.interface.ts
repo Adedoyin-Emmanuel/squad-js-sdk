@@ -13,9 +13,13 @@ export interface PosInterface {
   location_id: string;
 }
 
-export interface PosInterfaceResponseProps {
+export interface PosInterfaceResponseProps extends BaseResponseProps {
   data: {
     count: number;
     rows: PosInterface[];
+    query: {
+      page: number;
+      perPage: number;
+    }
   };
 }

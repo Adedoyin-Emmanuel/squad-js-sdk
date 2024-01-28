@@ -1,5 +1,4 @@
-import SquadDisputeResolver from "./dispute";
-
+import SquadPOS from "./pos";
 /**
  * @description
  * Squad JavaScript | TypeScript SDK
@@ -8,7 +7,7 @@ import SquadDisputeResolver from "./dispute";
  * @since 21st of January 2024
  * Built with ❣️ by Adedoyin Emmanuel Adeniyi @see https://github.com/adedoyin-emmanuel/
  */
-export class CreateSquadClient extends SquadDisputeResolver {
+export class CreateSquadClient extends SquadPOS {
   constructor(
     publicKey: string,
     privateKey: string,

@@ -20,14 +20,12 @@ export default abstract class SquadPOS extends SquadDisputeResolver {
     super(publicKey, privateKey, environment);
     this.basePosUrl = "/softpos";
   }
-
   /**
    *
    * @param {number} page - The page number
    * @param {number} perPage - The number of transactions per page
    * @param {string} dateFrom - Format YYYY-MM-DD startDate
    * @param {string} dateTo - Format YYYY-MM-DD endDate
-   * @param {string} sortBy - This is the sorting parameter. This can have a value of 'createdAt'
    * @param {string} sort_by_dir - This arranges transactions in Ascending or Descending order. Possible values are ASC or DESC
    */
   public async getAllPosTransactions(
@@ -35,15 +33,35 @@ export default abstract class SquadPOS extends SquadDisputeResolver {
     perPage: number,
     dateFrom?: string,
     dateTo?: string,
-    sortBy?: string,
     sort_by_dir?: "ASC" | "DESC"
   ): Promise<PosInterfaceResponseProps> {
     if (typeof page !== "number" || typeof perPage !== "number")
       throw new Error("Validation Error! Page or PerPage must be an integer");
 
+    const queryParams: Record<string, any> = {
+      page,
+      perPage,
+    };
+
+    // Only include dateFrom, dateTo, and sort_by_dir if provided
+    if (dateFrom !== undefined) {
+      queryParams.date_from = dateFrom;
+    }
+
+    if (dateTo !== undefined) {
+      queryParams.date_to = dateTo;
+    }
+
+    if (sort_by_dir !== undefined) {
+      queryParams.sort_by_dir = sort_by_dir;
+    }
+
     try {
       const squadResponse = await this.Axios.get(
-        `${this.basePosUrl}/transactions?perPage=${perPage}&page=${page}&date_from=${dateFrom}&date_to=${dateTo}&sortBy=${sortBy}&sort_by_dir=${sort_by_dir}`
+        `${this.basePosUrl}/transactions`,
+        {
+          params: queryParams,
+        }
       );
 
       return squadResponse.data;
