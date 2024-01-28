@@ -52,7 +52,6 @@ describe("Squad Transfer Test Module 🧪", () => {
     it("Should return all transfers", async () => {
       const response = await squad.getAllTransfers();
 
-      console.log(response);
 
       expect(response.status).toBe(200);
       expect(response.success).toBeTrue();

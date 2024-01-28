@@ -1,5 +1,6 @@
 import type { BaseResponseProps } from "./interfaces/base-response";
 import SquadWalletBalance from "./wallet-balance";
+import type { DisputeResponseProps } from "./interfaces/dispute.interface";
 
 export default abstract class SquadDisputeResolver extends SquadWalletBalance {
   /**
@@ -23,7 +24,7 @@ export default abstract class SquadDisputeResolver extends SquadWalletBalance {
   /**
    * @desc This method is used to get all disputes on your transactions raised by your customers.
    */
-  public async getAllDisputes(): Promise<BaseResponseProps> {
+  public async getAllDisputes(): Promise<DisputeResponseProps> {
     try {
       const squadResponse = await this.Axios.get(this.baseDisputeUrl);
 
