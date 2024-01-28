@@ -243,21 +243,20 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     }
   }
 
-  /***
-   * @desc This method allows you query all transactions and filter using multiple parameters
-   *  like virtual account number, start and end dates, customer Identifier etc
+  /**
+   * @desc This method allows you to query all transactions and filter using multiple parameters
+   * like virtual account number, start and end dates, customer Identifier, etc.
    *
    * @arg filters
    * @arg {number} [filters.page] - The page number to display
    * @arg {number} [filters.perPage] - The number of records per page
-   * @arg {number} [filters.virtualAccount] - The virtual account, a 10 digit virtual account number
+   * @arg {number} [filters.virtualAccount] - The virtual account, a 10-digit virtual account number
    * @arg {string} [filters.customerIdentifier] - The unique customer identifier used to identify a customer account
    * @arg {date} [filters.startDate] - The start date
    * @arg {date} [filters.endDate] - The end date
-   * @arg {string} [filters.transacationReference] - The transaction reference
+   * @arg {string} [filters.transactionReference] - The transaction reference
    * @arg {string} [filters.sessionId] - The session identifier of the transaction
    * @arg {string} [filters.dir] - Takes 2 possible values ASC (Ascending) or DESC (Descending order)
-   *
    */
   public async findAllMerchantTransactionsByFilter(
     filters: MerchantTransactionFiltersProps
@@ -265,21 +264,25 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
     if (typeof filters !== "object")
       throw new Error("Validation error! Invalid filters");
 
-    const dataToSend = {
-      page: filters.page,
-      perPage: filters.perPage,
-      virtualAccount: filters.virtualAccount,
-      customerIdentifier: filters.customerIdentifier,
-      startDate: filters.startDate,
-      endDate: filters.endDate,
-      transactionReference: filters.transactionReference,
-      session_id: filters.sessionId,
-      dir: filters.dir,
-    };
+    const validFilters: Record<string, any> = {};
+
+    // Only include filters with values provided by the user
+    for (const key in filters) {
+      if (
+        Object.prototype.hasOwnProperty.call(filters, key) &&
+        filters[key] !== undefined &&
+        filters[key] !== null
+      ) {
+        validFilters[key] = filters[key];
+      }
+    }
 
     try {
       const squadResponse = await this.Axios.get(
-        `${this.baseVirtualAccountUrl}/merchant/transactions/all?page=${dataToSend.page}&perPage=${dataToSend.perPage}&virtualAccount=${dataToSend.virtualAccount}&customerIdentifier=${dataToSend.customerIdentifier}&startDate=${dataToSend.startDate}&endDate=${dataToSend.endDate}&transactionReference=${dataToSend.transactionReference}&sessionId=${dataToSend.session_id}&dir=${dataToSend.dir}`
+        `${this.baseVirtualAccountUrl}/merchant/transactions/all`,
+        {
+          params: validFilters,
+        }
       );
 
       return squadResponse.data;
@@ -396,12 +399,29 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   ): Promise<MerchantVirtualAccountResponseProps> {
     if (typeof page !== "number" || typeof perPage !== "number")
       throw new Error(
-        "Validation error! Page, PerPage, StartDate or EndDate must be of valid data type"
+        "Validation error! Page, PerPage, StartDate, or EndDate must be of a valid data type"
       );
+
+    const queryParams: Record<string, any> = {
+      page,
+      perPage,
+    };
+
+    // Only include startDate and endDate if provided
+    if (startDate !== undefined) {
+      queryParams.startDate = startDate;
+    }
+
+    if (endDate !== undefined) {
+      queryParams.endDate = endDate;
+    }
 
     try {
       const squadResponse = await this.Axios.get(
-        `${this.baseVirtualAccountUrl}/merchant/accounts?page=${page}&perPage=${perPage}&startDate=${startDate}&endDate=${endDate}`
+        `${this.baseVirtualAccountUrl}/merchant/accounts`,
+        {
+          params: queryParams,
+        }
       );
 
       return squadResponse.data;
@@ -455,7 +475,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    */
   public async simulateVirtualAccountPayment(
     virtualAccountNumber: string,
-    amount?: number,
+    amount?: string,
     dva: boolean = false
   ): Promise<BaseResponseProps> {
     if (!virtualAccountNumber || typeof virtualAccountNumber !== "string")
@@ -528,7 +548,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * @arg {string} transactionRef - A unique transaction reference that identifies the transaction on your system
    */
   public async initiateDynamicVirtualAccountTransaction(
-    amount: number,
+    amount: string,
     duration: number,
     email: string,
     transactionRef: string
@@ -587,10 +607,10 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * @param duration - The amount of time before the transaction expires. Duration is in seconds (ie) 60  = 1 min
    */
   public async updateDynamicVirtualAccountTransactionAmount(
-    amount: number,
+    amount: string,
     transactionReference: string,
     duration?: number
-  ): Promise<any> {
+  ): Promise<BaseResponseProps> {
     if (!amount || !transactionReference || duration)
       throw new Error(
         "Validation Error! Invalid transaction data, please check your function arguments"
@@ -598,7 +618,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
     const dataToSend = {
       amount,
-      transaction_ref: transactionReference,
+      transaction_reference: transactionReference,
       duration,
     };
 

@@ -75,7 +75,7 @@ export interface WebhookProps {
   transactionRef: string;
 }
 
-export interface WebhookPropsResponseProps {
+export interface WebhookPropsResponseProps extends BaseResponseProps {
   data: {
     count: number;
     rows: WebhookProps[];
@@ -136,11 +136,12 @@ export interface MerchantTransactionFiltersProps {
   perPage?: number;
   virtualAccount?: number;
   customerIdentifier?: string;
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string;
+  endDate?: string;
   transactionReference?: string;
   sessionId?: string;
-  dir?: string | "ASC" | "DESC";
+  dir?:  "ASC" | "DESC";
+  [key: string]: any; // Index signature to allow any other properties
 }
 
 export interface MerchantTransactionFilterResponseProps
