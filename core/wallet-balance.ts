@@ -1,7 +1,7 @@
-import SquadVirtualAccount from "./virtual-account";
+import SquadTransfer from "./transfer";
 import type { WalletBalanceResponseProps } from "./interfaces/wallet-balance.interface";
 
-export default abstract class SquadWalletBalance extends SquadVirtualAccount {
+export default abstract class SquadWalletBalance extends SquadTransfer {
   /**
    * @desc This is the sub class for the Squad Virtual Account Module
    * @arg {string} publicKey - Squad public key
