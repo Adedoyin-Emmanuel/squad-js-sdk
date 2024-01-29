@@ -26,10 +26,27 @@ Okay, good question. While this **SDK** is a game changer for anyone working wit
 
 ## Installation 💽
 
-To install the **SDK** in your application, you can install using `npm, yarn, pnpm or bunx`
+To install the **SDK** in your application, you can install using `npm, yarn, pnpm or bun`
+
+**Npm**
 
 ```bash
 
 npm install @squadco/js
 
 ```
+
+**Yarn**
+
+```bash
+yarn add @squadco/js
+
+```
+
+**Bun**
+
+```bash
+bun add @squadco/js
+
+```
+
