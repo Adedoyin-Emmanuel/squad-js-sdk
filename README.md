@@ -25,6 +25,9 @@
     - [Verify Transaction Method](#verify-transaction-method)
       - [Parameters](#parameters-2)
       - [Example](#example-2)
+    - [Create Payment Link Method](#create-payment-link-method)
+      - [Parameters](#parameters-3)
+      - [Example](#example-3)
 
 ## Introduction 🚀
 
@@ -153,11 +156,42 @@ This is method allows you to query the status of a particular transaction using 
 
 #### Parameters
 
-- `transactionRef` (String, optional): Optional transaction reference string.
+- `transactionRef` (String): The transaction reference string.
 
 #### Example
 
 ```typescript
 const response = await squad.verifyTransaction("TRANS_12345");
 console.log(response.data.transaction_status);
+```
+
+### Create Payment Link Method
+
+This is method allows you to create a simple payment link.
+
+#### Parameters
+
+- `transactionData` (Object).
+  - `name` (String): The title or name of the payment link.
+  - `hash` (String): The unique string that identifies the payment link (cannot exceed 255 characters)
+  - `linkStatus` (Number): This can either be 0 or 1. 0 for inactive, 1 for active.
+  - `expireBy` (Date): This is the date the payment link expires. Sample: 2021-04-26T11:22:08.587Z
+  - `amount` (String): The amount to be paid via the payment link.
+  - `currencyId` (String): The currency to be used for the payment link. Allowed values are NGN and USD
+  - `description` (String): What the payment link does.
+  - `redirectLink` (String): The URL to redirect the user to after the payment is completed. If not provided, the URL on the dashboard will be used.
+  - `returnMsg` (String): The message to display to the user when the payment is completed.
+
+#### Example
+
+```typescript
+const response = await squad.createPaymentLink({
+  name: "Adedoyin Emmanuel Adeniyi",
+  hash: `emmysoft${Math.floor(Math.random() * 100000)}`,
+  linkStatus: 1,
+  expireBy: new Date("2024-09-14").toISOString(),
+  amount: 200000,
+  currencyId: "NGN",
+  description: "Payment for JAMB registration form",
+});
 ```

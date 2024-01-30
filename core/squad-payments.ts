@@ -156,7 +156,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
    * @arg transactionData
    * @arg {string} transactionData.name - The title/name of the payment link
    * @arg {string} transactionData.hash - The unique string that identifies each payment link (cannot exceed 255 characters)
-   * @arg {linkStatus} transactionData.linkStatus - This is the status of the payment link. It can either be active or inactive. 0 for inactive and 1 for active.
+   * @arg {number} transactionData.linkStatus - This is the status of the payment link. It can either be active or inactive. 0 for inactive and 1 for active.
    * @arg {Date} transactionData.expireBy - This is the date the payment link expires. Sample: 2021-04-26T11:22:08.587Z
    * @arg {number} transactionData.amount - The amount to be paid via the payment link
    * @arg {string} transactionData.currencyId - The currency to be used for the payment link. Allowed values are NGN and USD
