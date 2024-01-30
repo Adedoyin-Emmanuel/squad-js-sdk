@@ -30,6 +30,10 @@
       - [Example](#example-3)
     - [Refund Method](#refund-method)
       - [Parameters](#parameters-4)
+      - [Example](#example-4)
+    - [Create Sub Merchant Method](#create-sub-merchant-method)
+      - [Parameters](#parameters-5)
+      - [Example](#example-5)
 
 ## Introduction 🚀
 
@@ -37,7 +41,7 @@ Simplify the integration process with Squad's comprehensive payment solutions us
 
 ### Why Did I Build This? 🤔
 
-Okay, good question. While this **SDK** is a game changer for anyone working with **Squad Payment Gateway** in their application. I also built this **SDK** as a point of contact to the **SquadCo Team** I haven't seen a company that I'm soo intrested in working that than **Squad**. I really love what they're building and I would love to be part of the team. After the hackathon, I suddenly fell in love with their product and I've been preaching the gosple of their product in every possible way.
+Okay, good question. While this **SDK** is a game changer for anyone working with **Squad Payment Gateway** in their application. The features of this **SDK** can be found here. [SDK Features](https://github.com/adedoyin-emmanuel/squad-js-sdk/). I also built this **SDK** as a point of contact to the **SquadCo Team** I haven't seen a company that I'm soo intrested in working that than **Squad**. I really love what they're building and I would love to be part of the team. After the hackathon, I fell in love with their product and I've been preaching the gosple of their product in every possible way.
 
 ## Installation 💽
 
@@ -211,11 +215,38 @@ This method is used to initiate refund process on a successful transaction.
   - `reasonForRefund` (String): The reason for initiating the refund.
   - `refundAmount` (String): The amount to be refunded. This should be speficified only if the refund type is Partial
 
+#### Example
+
 ```typescript
 const response = await squad.refund({
   gatewayTransactionRef: "12345",
   transactionRef: "TRANS_12345",
   reasonForRefund: "Customer is not satusfied with product purchase",
   refundType: "Full",
+});
+```
+
+### Create Sub Merchant Method
+
+This method allows you to be profiled as an aggregator and also create sub-merchants dynamically under your account.
+
+#### Parameters
+
+- `transactionData` (Object).
+  - `displayName` (String): The name of the sub-merchant
+  - `accountName` (String): The sub-merchant's settlement bank account name
+  - `accountNumber` (String): The sub-merchant's account number
+  - `bankCode` (String): The sub-merchant's settlement bank code
+  - `bankName` (String): The sub-merchant's settlement bank name eg GTBank
+
+#### Example
+
+```typescript
+const response = await squad.createSubMerchant({
+  displayName: "Adedoyin Emmanuel Adeniyi",
+  accountName: "Emmysoft's Account",
+  accountNumber: "000000000",
+  bankCode: "054",
+  bankName: "GtBank",
 });
 ```
