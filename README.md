@@ -43,6 +43,9 @@
     - [Get Webhook Error Log Method](#get-webhook-error-log-method)
       - [Parameter](#parameter)
       - [Example](#example-8)
+    - [Delete Webhook Error Log](#delete-webhook-error-log)
+      - [Parameter](#parameter-1)
+      - [Example](#example-9)
 
 ## Introduction 🚀
 
@@ -334,4 +337,18 @@ This method allows you retrieve all your missed webhook transactions and use it 
 
 ```typescript
 const response = await squad.getWebhookErrorLog(1, 0);
+```
+
+### Delete Webhook Error Log
+
+This API enables you delete a processed transaction from the webhook error log. When you delete the transaction from the log, it won't be returned to you again. Failure to delete a transaction will result in the transaction being returned to you in the top 100 transactions returned each time you retry.
+
+#### Parameter
+
+- `transactionRef` (String) - The unique reference that identifies a transaction.
+
+#### Example
+
+```typescript
+const response = await squad.deleteWebhookErrorLog("SQEMMY6384147273871800005");
 ```

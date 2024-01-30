@@ -178,7 +178,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * Failure to delete a transaction will result in the transaction being returned to
    * you in the top 100 transactions returned each time you retry
    *
-   * @arg {string} transactionRef
+   * @arg {string} transactionRef - The unique reference that identifies a transaction.
    */
   public async deleteWebhookErrorLog(
     transactionRef: string
