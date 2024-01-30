@@ -40,6 +40,9 @@
     - [Create Business Virtual Account Method](#create-business-virtual-account-method)
       - [Parameters](#parameters-7)
       - [Example](#example-7)
+    - [Get Webhook Error Log Method](#get-webhook-error-log-method)
+      - [Parameter](#parameter)
+      - [Example](#example-8)
 
 ## Introduction 🚀
 
@@ -316,4 +319,19 @@ const response = await squad.createBusinessVirtualAccount({
   customerIdentifier: "EmmysoftTech_28",
   beneficiaryAccount: "0000000000",
 });
+```
+
+### Get Webhook Error Log Method
+
+This method allows you retrieve all your missed webhook transactions and use it to update your record without manual input.The top 100 missed webhook will always be returned by default and it This flow involves integration of two(2) APIs Once you have updated the record of a particular transaction, you are expected to use the second API to delete the record from the error log. If this is not done, the transaction will continuously be returned to you in the first 100 transactions until you delete it. This will only work for those who respond correctly to our webhook calls. Also, ensure you have a transaction duplicate checker to ensure you don't update a record twice or update a record you have updated using the webhook or the transaction API.
+
+#### Parameter
+
+- `page` (Number): The page you are on.
+- `perPage` (Number): The number of records you want to appear on a page.
+
+#### Example
+
+```typescript
+const response = await squad.getWebhookErrorLog(1, 0);
 ```
