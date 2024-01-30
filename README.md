@@ -16,6 +16,7 @@
     - [Why Did I Build This? 🤔](#why-did-i-build-this-)
   - [Installation 💽](#installation-)
   - [Usage 🚦](#usage-)
+    - [Initiate Payment Method](#initiate-payment-method)
 
 ## Introduction 🚀
 
@@ -65,7 +66,7 @@ Then we create a new instance of the **CreateSquadClient** which allows us to in
 2. The Squad Private Key
 3. The Environment.
 
-The Public and Private Key can be gotten from the **Squad** website. <https://sandbox.squadco.com/sign-up> or s
+The Public and Private Key can be gotten from the **Squad** website. <https://sandbox.squadco.com/sign-up> or <https://dashboard.squadco.com/sign-up>
 
 ```typescript
 const squad = new CreateSquadClient(
@@ -73,4 +74,33 @@ const squad = new CreateSquadClient(
   process.env.SQUAD_PRIVATE_KEY as string,
   process.env.NODE_ENV as string
 );
+```
+
+### Initiate Payment Method
+
+This method allows you to initiate a transaction by making calls from your server which returns a URL that when visited will call up SQUAD payment modal. This method takes 2 parameters. An object called the transactionData and a boolean parameter called tokenizeCard. The transactionData is of type `InitiatePaymentProps`. It takes the following properties.
+
+- `transactionData` (Object): Data for the transaction.
+  - `amount` (String): The amount to debit from the customer (expressed in the lowest currency value - kobo & cent). 10000 = 100NGN for Naira Transactions.
+  - `email` (String): Email address of the client making payment.
+  - `initiateType` (String): Method by which the transaction is initiated. Currently, only "inline" is supported. [More details](https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment)
+  - `currency` (String): Currency for charging the amount. Allowed values: NGN or USD.
+  - `transactionRef` (String, optional): An alphanumeric string uniquely identifying a transaction.
+  - `customerName` (String, optional): Name of the customer carrying out the transaction.
+  - `callbackUrl` (String, optional): URL to redirect the user to after the transaction is completed.
+  - `paymentChannels` (Array, optional): Array of payment channels to make available for the user to make a payment. Available options: ['card', 'bank', 'ussd', 'transfer']
+  - `metadata` (Object, optional): Additional information to record with the transaction. Custom fields will be returned via webhook and the payment verification endpoint.
+  - `passCharge` (Boolean, optional): Takes values True or False. Set to False by default. When True, charges on the transaction are passed on to the customer (payer). When False, the charge is passed to the merchant and deducted from the settlement amount.
+  - `subMerchantId` (String, optional): ID of a merchant created by an aggregator to initiate a transaction on behalf of the submerchant.
+  - `tokenizeCard` (Boolean, optional): Tokenizes a card. When included in the initiate payload, it automatically tokenizes the card, and the unique token code will be added to the webhook notification received after payment. [More details](https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment)
+
+```typescript
+const response = squad.initiatePayment({
+  amount: 20000,
+  email: "adedoyine535@gmail.com",
+  initiateType: "inline",
+  currency: "NGN",
+  customerName: "Adedoyin Emmanuel Adeniyi",
+  callbackUrl: "https://github.com/adedoyin-emmanuel",
+});
 ```
