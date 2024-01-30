@@ -37,6 +37,9 @@
     - [Create Virtual Account Method](#create-virtual-account-method)
       - [Parameters](#parameters-6)
       - [Example](#example-6)
+    - [Create Business Virtual Account Method](#create-business-virtual-account-method)
+      - [Parameters](#parameters-7)
+      - [Example](#example-7)
 
 ## Introduction 🚀
 
@@ -287,5 +290,30 @@ const response = await squad.createVirtualAccount({
   gender: "1",
   address: "28, Typhoon Trophy street",
   customerIdentifier: "Emmysoft",
+});
+```
+
+### Create Business Virtual Account Method
+
+This method allows you to create virtual accounts for your customers who are businesses and not individuals. That is, these customers are actually businesses (B2B) or other merchants. Please note that due to CBN's Guidelines on validation before account creation as well as other related Fraud concerns, you are required to request for profiling before you can have access to create accounts for businesses. Once profiled, you can go ahead and keep creating accounts for your businesses.
+
+#### Parameters
+
+- `transactionData` (Object).
+  - `bvn` (String): The business bvn
+  - `businessName` (String): The name of the business
+  - `customerIdentifier` (String): The unique identifier given to the customer
+  - `mobileNumber` (String): The mobile number of the business
+  - `beneficiaryAccount` (String): This is the 10 Digit Bank Account Number (GTBank) where money sent to this Virtual account is paid into. Please note that when beneficiary account is not provided, money paid into this virtual account go into your wallet and will be paid out/settled in T+1 settlement time.
+
+#### Example
+
+```typescript
+const response = await squad.createBusinessVirtualAccount({
+  bvn: "102034959686",
+  businessName: "EMT",
+  mobileNumber: "09029595867",
+  customerIdentifier: "EmmysoftTech_28",
+  beneficiaryAccount: "0000000000",
 });
 ```
