@@ -22,6 +22,9 @@
     - [Charge Card Method](#charge-card-method)
       - [Parameters](#parameters-1)
       - [Example](#example-1)
+    - [Verify Transaction Method](#verify-transaction-method)
+      - [Parameters](#parameters-2)
+      - [Example](#example-2)
 
 ## Introduction 🚀
 
@@ -142,4 +145,19 @@ const response = await squad.chargeCard({
   tokenId: "token12356",
   transactionRef: "TRANS_002ZQ391",
 });
+```
+
+### Verify Transaction Method
+
+This is method allows you to query the status of a particular transaction using the unique transaction reference attached to the transaction.
+
+#### Parameters
+
+- `transactionRef` (String, optional): Optional transaction reference string.
+
+#### Example
+
+```typescript
+const response = await squad.verifyTransaction("TRANS_12345");
+console.log(response.data.transaction_status);
 ```
