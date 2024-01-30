@@ -28,6 +28,8 @@
     - [Create Payment Link Method](#create-payment-link-method)
       - [Parameters](#parameters-3)
       - [Example](#example-3)
+    - [Refund Method](#refund-method)
+      - [Parameters](#parameters-4)
 
 ## Introduction 🚀
 
@@ -193,5 +195,27 @@ const response = await squad.createPaymentLink({
   amount: 200000,
   currencyId: "NGN",
   description: "Contributions for confectionaries ",
-});emmysoftemmysoft
+});
+```
+
+### Refund Method
+
+This method is used to initiate refund process on a successful transaction.
+
+#### Parameters
+
+- `transactionData` (Object).
+  - `gatewayTransactionRef` (String): The unique reference that uniquely identifies the medium of payment and can be obtained from the webhook notification sent to you.
+  - `transactionRef` (String): The unique reference that identifies a transaction.
+  - `refundType` (String): This can either be Full or Partial.
+  - `reasonForRefund` (String): The reason for initiating the refund.
+  - `refundAmount` (String): The amount to be refunded. This should be speficified only if the refund type is Partial
+
+```typescript
+const response = await squad.refund({
+  gatewayTransactionRef: "12345",
+  transactionRef: "TRANS_12345",
+  reasonForRefund: "Customer is not satusfied with product purchase",
+  refundType: "Full",
+});
 ```

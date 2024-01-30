@@ -195,7 +195,6 @@ export default abstract class SquadPayment extends SquadBaseClient {
        * You get the vibe 😀
        */
 
-      //console.log(dataToSend);
       const squadResponse = await this.Axios.post(
         `/payment_link/otp`,
         dataToSend
@@ -209,7 +208,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
   }
 
   /**
-   *
+   * This method is used to initiate refund process on a successful transaction.
    * @arg transactionData
    * @arg {string} transactionData.gatewayTransactionRef - The unique reference that uniquely identifies the medium
    * of payment and can be obtained from the webhook notification sent to you.
@@ -217,7 +216,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
    * this can be obtained from the dashboard or the webhook notification sent to you.
    *
    * @arg {string} transactionData.refundType - This can either be Full or Partial
-   * @arg {string} transactionData.reasonForRefund- Reason for initiating the refund
+   * @arg {string} transactionData.reasonForRefund- The reason for initiating the refund
    * @arg {number} transactionData.refundAmount - The amount to be refunded. This should be speficified only if the refund type is Partial
    *
    * Also this method isn't part of the payment module. Actually this endpoint isn't grouped together with their payment endpoint.
