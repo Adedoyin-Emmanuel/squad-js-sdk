@@ -186,12 +186,12 @@ This is method allows you to create a simple payment link.
 
 ```typescript
 const response = await squad.createPaymentLink({
-  name: "Adedoyin Emmanuel Adeniyi",
-  hash: `emmysoft${Math.floor(Math.random() * 100000)}`,
+  name: "NITHUB Devs Party",
+  hash: `emmysoft ${Math.floor(Math.random() * 100000)}`, // Use something more randomized here.
   linkStatus: 1,
   expireBy: new Date("2024-09-14").toISOString(),
   amount: 200000,
   currencyId: "NGN",
-  description: "Payment for JAMB registration form",
-});
+  description: "Contributions for confectionaries ",
+});emmysoftemmysoft
 ```
