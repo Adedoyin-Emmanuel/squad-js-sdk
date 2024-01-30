@@ -95,7 +95,7 @@ This method allows you to initiate a transaction by making calls from your serve
   - `tokenizeCard` (Boolean, optional): Tokenizes a card. When included in the initiate payload, it automatically tokenizes the card, and the unique token code will be added to the webhook notification received after payment. [More details](https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment)
 
 ```typescript
-const response = squad.initiatePayment({
+const response = await squad.initiatePayment({
   amount: 20000,
   email: "adedoyine535@gmail.com",
   initiateType: "inline",
@@ -103,4 +103,13 @@ const response = squad.initiatePayment({
   customerName: "Adedoyin Emmanuel Adeniyi",
   callbackUrl: "https://github.com/adedoyin-emmanuel",
 });
+```
+
+As you know, the SDK comes with `Typed Responses` which means automatic type definitions for API responses. You can easily redirect the user to the checkout url
+
+```typescript
+const checkoutUrl = response.data.checkout_url;
+
+//redirect the client to the checkout url
+res.redirect(checkoutUrl);
 ```
