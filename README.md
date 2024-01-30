@@ -17,6 +17,11 @@
   - [Installation 💽](#installation-)
   - [Usage 🚦](#usage-)
     - [Initiate Payment Method](#initiate-payment-method)
+      - [Parameters](#parameters)
+      - [Example](#example)
+    - [Charge Card Method](#charge-card-method)
+      - [Parameters](#parameters-1)
+      - [Example](#example-1)
 
 ## Introduction 🚀
 
@@ -80,6 +85,8 @@ const squad = new CreateSquadClient(
 
 This method allows you to initiate a transaction by making calls from your server which returns a URL that when visited will call up SQUAD payment modal. This method takes 2 parameters. An object called the transactionData and a boolean parameter called tokenizeCard. The transactionData is of type `InitiatePaymentProps`. It takes the following properties.
 
+#### Parameters
+
 - `transactionData` (Object): Data for the transaction.
   - `amount` (String): The amount to debit from the customer (expressed in the lowest currency value - kobo & cent). 10000 = 100NGN for Naira Transactions.
   - `email` (String): Email address of the client making payment.
@@ -94,6 +101,8 @@ This method allows you to initiate a transaction by making calls from your serve
   - `subMerchantId` (String, optional): ID of a merchant created by an aggregator to initiate a transaction on behalf of the submerchant.
   - `tokenizeCard` (Boolean, optional): Tokenizes a card. When included in the initiate payload, it automatically tokenizes the card, and the unique token code will be added to the webhook notification received after payment. [More details](https://squadinc.gitbook.io/squad-api-documentation/payments/initiate-payment)
 
+#### Example
+
 ```typescript
 const response = await squad.initiatePayment({
   amount: 20000,
@@ -102,7 +111,7 @@ const response = await squad.initiatePayment({
   currency: "NGN",
   customerName: "Adedoyin Emmanuel Adeniyi",
   callbackUrl: "https://github.com/adedoyin-emmanuel",
-});
+}, tokenizeCard: false);
 ```
 
 As you know, the SDK comes with `Typed Responses` which means automatic type definitions for API responses. You can easily redirect the user to the checkout url
@@ -110,6 +119,27 @@ As you know, the SDK comes with `Typed Responses` which means automatic type def
 ```typescript
 const checkoutUrl = response.data.checkout_url;
 
-//redirect the client to the checkout url
+//redirect the client to the checkout url. Assuming you're using express
 res.redirect(checkoutUrl);
+```
+
+### Charge Card Method
+
+Charges a card using the token generated during the initiate transaction, which is sent via webhook. Remember that you must pass the tokenize argument with the `initiatePayment` method when the card is first charged.
+
+#### Parameters
+
+- `transactionData` (Object): Data for the charge.
+  - `amount` (Number): The amount to charge.
+  - `tokenId` (String): The unique tokenization code for each card transaction, returned via the webhook for the first charge on the card.
+  - `transactionRef` (String, optional): Optional transaction reference string.
+
+#### Example
+
+```typescript
+const response = await squad.chargeCard({
+  amount: "10000",
+  tokenId: "token12356",
+  transactionRef: "TRANS_002ZQ391",
+});
 ```
