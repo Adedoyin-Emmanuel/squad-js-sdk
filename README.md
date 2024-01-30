@@ -34,6 +34,9 @@
     - [Create Sub Merchant Method](#create-sub-merchant-method)
       - [Parameters](#parameters-5)
       - [Example](#example-5)
+    - [Create Virtual Account Method](#create-virtual-account-method)
+      - [Parameters](#parameters-6)
+      - [Example](#example-6)
 
 ## Introduction 🚀
 
@@ -248,5 +251,41 @@ const response = await squad.createSubMerchant({
   accountNumber: "000000000",
   bankCode: "054",
   bankName: "GtBank",
+});
+```
+
+### Create Virtual Account Method
+
+This method is used to create virtual account for individuals/customer on your platform. Please note that there is a strict validation of the BVN against the names, Date of Birth and Phone Number. (B2C).
+
+#### Parameters
+
+- `transactionData` (Object).
+  - `firstName` (String): The first name of the customer
+  - `lastName` (String): The last name of the customer
+  - `middleName` (String): The middle name of the customer
+  - `mobileNumber` (String): The mobile number of the customer
+  - `dob` (String): The date of birth of the customer
+  - `email` (String): The email address of the customer
+  - `bvn` (String): The bvn number of the customer
+  - `gender` (String): The gender of the customer. 1 = Male 2 = Female
+  - `address` (String): The address of the customer
+  - `customerIdentifier` (String): The unique identifier of the customer given by merchant
+  - `beneficiaryAccount` (String): The 10 digit Bank Account Number (GtBank) provided by the merchant where money sent to this virtual account is paid into. **NB** If this is not provided, money paid into this virtual account goes into your wallet and will be paid out/settled in T+1 settlement time.
+
+#### Example
+
+```typescript
+const response = await squad.createVirtualAccount({
+  firstName: "Adedoyin",
+  lastName: "Emmanuel",
+  middleName: "Adeniyi",
+  mobileNumber: "09083927493",
+  dob: "08/28/2002",
+  email: "adedoyine535@gmail.com",
+  bvn: "101020304858",
+  gender: "1",
+  address: "28, Typhoon Trophy street",
+  customerIdentifier: "Emmysoft",
 });
 ```
