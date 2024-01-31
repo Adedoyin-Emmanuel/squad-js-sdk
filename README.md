@@ -49,6 +49,9 @@
     - [Find Customer Transaction By Id](#find-customer-transaction-by-id)
       - [Parameters](#parameters-9)
       - [Example](#example-10)
+    - [Find All Merchant Transactions](#find-all-merchant-transactions)
+      - [Parameters](#parameters-10)
+      - [Example](#example-11)
 
 ## Introduction 🚀
 
@@ -370,4 +373,18 @@ This is a method to query the transaction a customer has made. This is done usin
 const response = await squad.findCustomerTransactionById(
   "SQEMMY6384147273871800005"
 );
+```
+
+### Find All Merchant Transactions
+
+This is a method to query all the merchant transactions over a period of time.
+
+#### Parameters
+
+None
+
+#### Example
+
+```typescript
+const response = await squad.findAllMerchantTransactions();
 ```
