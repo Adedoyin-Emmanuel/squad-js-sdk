@@ -44,8 +44,11 @@
       - [Parameter](#parameter)
       - [Example](#example-8)
     - [Delete Webhook Error Log](#delete-webhook-error-log)
-      - [Parameter](#parameter-1)
+      - [Parameters](#parameters-8)
       - [Example](#example-9)
+    - [Find Customer Transaction By Id](#find-customer-transaction-by-id)
+      - [Parameters](#parameters-9)
+      - [Example](#example-10)
 
 ## Introduction 🚀
 
@@ -341,9 +344,9 @@ const response = await squad.getWebhookErrorLog(1, 0);
 
 ### Delete Webhook Error Log
 
-This API enables you delete a processed transaction from the webhook error log. When you delete the transaction from the log, it won't be returned to you again. Failure to delete a transaction will result in the transaction being returned to you in the top 100 transactions returned each time you retry.
+This method enables you delete a processed transaction from the webhook error log. When you delete the transaction from the log, it won't be returned to you again. Failure to delete a transaction will result in the transaction being returned to you in the top 100 transactions returned each time you retry.
 
-#### Parameter
+#### Parameters
 
 - `transactionRef` (String) - The unique reference that identifies a transaction.
 
@@ -351,4 +354,20 @@ This API enables you delete a processed transaction from the webhook error log. 
 
 ```typescript
 const response = await squad.deleteWebhookErrorLog("SQEMMY6384147273871800005");
+```
+
+### Find Customer Transaction By Id
+
+This is a method to query the transaction a customer has made. This is done using the customer's identifier which was passed when creating the virtual account.
+
+#### Parameters
+
+- `customerIdentifier` (String) - The unique identifier given to the customer.
+
+#### Example
+
+```typescript
+const response = await squad.findCustomerTransactionById(
+  "SQEMMY6384147273871800005"
+);
 ```

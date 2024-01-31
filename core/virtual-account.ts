@@ -203,7 +203,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * This is done using the customer's identifier which was passed when
    * creating the virtual account.
    *
-   * @arg {string} customerIdentifier
+   * @arg {string} customerIdentifier - The unique identifier given to the customer
    */
   public async findCustomerTransactionById(
     customerIdentifier: string
