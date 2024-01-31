@@ -61,6 +61,9 @@
     - [Update Customer BVN Method](#update-customer-bvn-method)
       - [Parameters](#parameters-13)
       - [Example](#example-14)
+    - [Find All Merchant Virtual Account Method](#find-all-merchant-virtual-account-method)
+      - [Parameters](#parameters-14)
+      - [Example](#example-15)
 
 ## Introduction 🚀
 
@@ -458,4 +461,21 @@ const response = await squad.updateCustomerBvn(
   "Emmysoft123",
   "09037583927"
 );
+```
+
+### Find All Merchant Virtual Account Method
+
+This is a method for merchants to query and retrieve all their virtual account.
+
+#### Parameters
+
+- `page` (Number): The page number to display
+- `perPage` (Number): The number of records to display
+- `startDate` (String): The start date in format YY-MM-DD
+- `endDate` (String): The end date in format YY-MM-DD
+
+#### Example
+
+```typescript
+const response = await squad.findAllMerchantVirtualAccounts(1, 1);
 ```
