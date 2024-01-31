@@ -341,7 +341,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   }
 
   /**
-   * @desc This is method to update customer's BVN and Unfreeze transaction
+   * @desc This method is used to update customer's BVN and Unfreeze transaction
    * @param {string} customerBvn - The bank verfication number of the customer
    * @arg {number} customerIdentifier - The unique number given to customer by merchant
    * @arg {number} phoneNumber - The phone number of the customer

@@ -58,6 +58,9 @@
     - [Get Customer Virtual Account Details Method](#get-customer-virtual-account-details-method)
       - [Parameters](#parameters-12)
       - [Example](#example-13)
+    - [Update Customer BVN Method](#update-customer-bvn-method)
+      - [Parameters](#parameters-13)
+      - [Example](#example-14)
 
 ## Introduction 🚀
 
@@ -435,4 +438,24 @@ This method retrives the details of a customer using the Virtual Account Number.
 
 ```typescript
 const response = await squad.getCustomerVirtualAccountDetails("Emmysoft123");
+```
+
+### Update Customer BVN Method
+
+This method is used to update customer's BVN and Unfreeze transaction
+
+#### Parameters
+
+- `customerBvn` (String) - The bank verfication number of the customer
+- `customerIdentifier` (String) - The unique number given to customer by merchant
+- `phoneNumber` (String) - The phone number of the customer
+
+#### Example
+
+```typescript
+const response = await squad.updateCustomerBvn(
+  "1234567890",
+  "Emmysoft123",
+  "09037583927"
+);
 ```
