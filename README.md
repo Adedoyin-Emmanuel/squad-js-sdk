@@ -55,6 +55,9 @@
     - [Find All Merchant Transactions By Filter](#find-all-merchant-transactions-by-filter)
       - [Parameters](#parameters-11)
       - [Example](#example-12)
+    - [Get Customer Virtual Account Details Method](#get-customer-virtual-account-details-method)
+      - [Parameters](#parameters-12)
+      - [Example](#example-13)
 
 ## Introduction 🚀
 
@@ -418,4 +421,18 @@ const response = await squad.findAllMerchantTransactionsByFilter({
   startDate: "01/01/2024",
   endDate: "01/20/2024",
 });
+```
+
+### Get Customer Virtual Account Details Method
+
+This method retrives the details of a customer using the Virtual Account Number.
+
+#### Parameters
+
+- `virtualAccountNumber` (String) -The virtual account, a 10-digit virtual account number.
+
+#### Example
+
+```typescript
+const response = await squad.getCustomerVirtualAccountDetails("Emmysoft123");
 ```

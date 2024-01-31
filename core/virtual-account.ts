@@ -294,7 +294,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
 
   /**
    * @desc This method retrives the details of a customer using the Virtual Account Number
-   * @arg {string} virtualAccountNumber
+   * @arg {string} virtualAccountNumber - The virtual account, a 10-digit virtual account number
    */
   public async findCustomerByVirtualAccountNumber(
     virtualAccountNumber: string
