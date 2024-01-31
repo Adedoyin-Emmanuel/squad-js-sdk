@@ -134,7 +134,7 @@ export interface MerchantTransactionResponseProps extends BaseResponseProps {
 export interface MerchantTransactionFiltersProps {
   page?: number;
   perPage?: number;
-  virtualAccount?: number;
+  virtualAccount?: string;
   customerIdentifier?: string;
   startDate?: string;
   endDate?: string;

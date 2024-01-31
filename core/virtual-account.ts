@@ -247,13 +247,13 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * @desc This method allows you to query all transactions and filter using multiple parameters
    * like virtual account number, start and end dates, customer Identifier, etc.
    *
-   * @arg filters
+   * @arg {Object} filters
    * @arg {number} [filters.page] - The page number to display
    * @arg {number} [filters.perPage] - The number of records per page
-   * @arg {number} [filters.virtualAccount] - The virtual account, a 10-digit virtual account number
+   * @arg {string} [filters.virtualAccount] - The virtual account, a 10-digit virtual account number
    * @arg {string} [filters.customerIdentifier] - The unique customer identifier used to identify a customer account
-   * @arg {date} [filters.startDate] - The start date
-   * @arg {date} [filters.endDate] - The end date
+   * @arg {string} [filters.startDate] - The start date
+   * @arg {string} [filters.endDate] - The end date
    * @arg {string} [filters.transactionReference] - The transaction reference
    * @arg {string} [filters.sessionId] - The session identifier of the transaction
    * @arg {string} [filters.dir] - Takes 2 possible values ASC (Ascending) or DESC (Descending order)

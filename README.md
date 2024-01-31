@@ -52,6 +52,9 @@
     - [Find All Merchant Transactions](#find-all-merchant-transactions)
       - [Parameters](#parameters-10)
       - [Example](#example-11)
+    - [Find All Merchant Transactions By Filter](#find-all-merchant-transactions-by-filter)
+      - [Parameters](#parameters-11)
+      - [Example](#example-12)
 
 ## Introduction 🚀
 
@@ -387,4 +390,32 @@ None
 
 ```typescript
 const response = await squad.findAllMerchantTransactions();
+```
+
+### Find All Merchant Transactions By Filter
+
+This method allows you to query all transactions and filter using multiple parameters like virtual account number, start and end dates, customer Identifier, etc.
+
+#### Parameters
+
+- `filters` (Object).
+  - `page` (Number): The page number to display
+  - `perPage` (Number): The number of records to display
+  - `virtualAccount` (String): The virtual account, a 10-digit virtual account number
+  - `customerIdentifier` (String): The unique customer identifier used to identify a customer account
+  - `startDate` (String): The start date
+  - `endDate` (String): The end date
+  - `transactionReference`: The transaction reference
+  - `sessionId` (String): The session identifier of the transaction
+  - `dir` (String): Takes 2 possible values ASC (Ascending) or DESC (Descending order)
+
+#### Example
+
+```typescript
+const response = await squad.findAllMerchantTransactionsByFilter({
+  page: 1,
+  perPage: 50,
+  startDate: "01/01/2024",
+  endDate: "01/20/2024",
+});
 ```
