@@ -70,6 +70,12 @@
     - [Simulate Virtual Account Payment Method](#simulate-virtual-account-payment-method)
       - [Parameters](#parameters-16)
       - [Example](#example-17)
+    - [Create Dynamic Virtual Account Method](#create-dynamic-virtual-account-method)
+      - [Parameters](#parameters-17)
+      - [Example](#example-18)
+    - [Get Pool Count Method](#get-pool-count-method)
+      - [Parameters](#parameters-18)
+      - [Example](#example-19)
 
 ## Introduction 🚀
 
@@ -523,3 +529,30 @@ const response = await squad.simulateVirtualAccountPayment(
 );
 ```
 
+### Create Dynamic Virtual Account Method
+
+This method allows you create and assign dynamic virtual accounts to your pool. Only one account is generated per request.
+
+#### Parameters
+
+None
+
+#### Example
+
+```typescript
+const response = await squad.createDynamicVirtualAccount();
+```
+
+### Get Pool Count Method
+
+This method gives you the total count of the virtual accounts you have in your pool.
+
+#### Parameters
+
+None
+
+#### Example
+
+```typescript
+const response = await squad.getPoolCount();
+```
