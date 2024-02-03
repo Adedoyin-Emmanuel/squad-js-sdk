@@ -64,6 +64,9 @@
     - [Find All Merchant Virtual Account Method](#find-all-merchant-virtual-account-method)
       - [Parameters](#parameters-14)
       - [Example](#example-15)
+    - [Update Beneficiary Account](#update-beneficiary-account)
+      - [Parameters](#parameters-15)
+      - [Example](#example-16)
 
 ## Introduction 🚀
 
@@ -478,4 +481,22 @@ This is a method for merchants to query and retrieve all their virtual account.
 
 ```typescript
 const response = await squad.findAllMerchantVirtualAccounts(1, 1);
+```
+
+### Update Beneficiary Account
+
+This method is used to update beneficiary account
+
+#### Parameters
+
+- `beneficiaryAccount` (String): The 10 digit valid NUBAN account number
+- `virtualAccountNumber` (String): The virtual account number whose beneficiary account to be updated
+
+#### Example
+
+```typescript
+const response = await squad.updateBeneficiaryAccount(
+  "0000000000",
+  "0001010203"
+);
 ```

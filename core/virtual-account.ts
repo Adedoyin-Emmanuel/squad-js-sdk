@@ -434,7 +434,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
   /**
    * @desc This method is used to update beneficiary account
    * @arg {string} beneficiaryAccount -The 10 digit valid NUBAN account number
-   * @arg {string} virtualAccountNumber  - The virtual account number whose beneficiary account is to be updated
+   * @arg {string} virtualAccountNumber  - The virtual account number whose beneficiary account to be updated
    */
   public async updateBeneficiaryAccount(
     beneficiaryAccount: string,
