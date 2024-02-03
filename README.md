@@ -64,9 +64,12 @@
     - [Find All Merchant Virtual Account Method](#find-all-merchant-virtual-account-method)
       - [Parameters](#parameters-14)
       - [Example](#example-15)
-    - [Update Beneficiary Account](#update-beneficiary-account)
+    - [Update Beneficiary Account Method](#update-beneficiary-account-method)
       - [Parameters](#parameters-15)
       - [Example](#example-16)
+    - [Simulate Virtual Account Payment Method](#simulate-virtual-account-payment-method)
+      - [Parameters](#parameters-16)
+      - [Example](#example-17)
 
 ## Introduction 🚀
 
@@ -483,7 +486,7 @@ This is a method for merchants to query and retrieve all their virtual account.
 const response = await squad.findAllMerchantVirtualAccounts(1, 1);
 ```
 
-### Update Beneficiary Account
+### Update Beneficiary Account Method
 
 This method is used to update beneficiary account
 
@@ -500,3 +503,23 @@ const response = await squad.updateBeneficiaryAccount(
   "0001010203"
 );
 ```
+
+### Simulate Virtual Account Payment Method
+
+This method allows you to simulate payment. ⚠️ This should be done on test environment only !!
+
+#### Parameters
+
+- `virtualAccountNumber` (String): The virtual account of customer that wants to make payment
+- `amount` (String): The simulated amount
+- `dva` (Boolean): True
+
+#### Example
+
+```typescript
+const response = await squad.simulateVirtualAccountPayment(
+  "0000000000",
+  "20000"
+);
+```
+

@@ -470,7 +470,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * @desc This method allows you to simulate payment. ⚠️ This should be done on test environment only !!
    *
    * @arg {string} virtualAccountNumber - The virtual account of customer that wants to make payment
-   * @arg {number} amount - Simulated amount
+   * @arg {string} amount - Simulated amount
    * @arg {boolean} dva - True
    */
   public async simulateVirtualAccountPayment(
