@@ -542,7 +542,7 @@ export default abstract class SquadVirtualAccount extends SquadSubMerchant {
    * @desc This method allows you generate a Dynamic Virtual Account
    * to be assigned to a customer. This is used to initiate a transaction.
    *
-   * @arg {number} amount  - The amount is in Kobo
+   * @arg {string} amount  - The amount is in Kobo
    * @arg {number} duration - The time allowed before an account/transaction is expired. Duration is in seconds (ie) 60 = 1 minute
    * @arg {string} email - The valid email address to notify customers
    * @arg {string} transactionRef - A unique transaction reference that identifies the transaction on your system

@@ -76,6 +76,9 @@
     - [Get Pool Count Method](#get-pool-count-method)
       - [Parameters](#parameters-18)
       - [Example](#example-19)
+    - [Initiate Dynamic Virtual Account Transaction Method](#initiate-dynamic-virtual-account-transaction-method)
+      - [Parameters](#parameters-19)
+      - [Example](#example-20)
 
 ## Introduction 🚀
 
@@ -555,4 +558,26 @@ None
 
 ```typescript
 const response = await squad.getPoolCount();
+```
+
+### Initiate Dynamic Virtual Account Transaction Method
+
+This method allows you generate a Dynamic Virtual Account to be assigned to a customer. This is used to initiate a transaction.
+
+#### Parameters
+
+- `amount` (String): The amount is in Kobo
+- `duration` (Number): The time allowed before an account/transaction is expired. Duration is in seconds (ie) 60 = 1 minute
+- `email`: (String): The valid email address to notify customers
+- `transactionRef`: (String): A unique transaction reference that identifies the transaction on your system.
+
+#### Example
+
+```typescript
+const response = await squad.initiateDynamicVirtualAccountTransaction(
+  "50000",
+  60,
+  "adedoyine535@gmail.com",
+  `TRANS_${Math.random() * 200 + 1}`
+);
 ```
