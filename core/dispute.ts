@@ -36,7 +36,7 @@ export default abstract class SquadDisputeResolver extends SquadWalletBalance {
   }
 
   /**
-   * @desc This API is used to get a unique URL to upload an evidence(file) which is a proof or reason to reject a dispute. This is only necessary when we want to reject a dispute.
+   * @desc This method is used to get a unique URL to upload an evidence(file) which is a proof or reason to reject a dispute. This is only necessary when we want to reject a dispute.
    *
    * @arg {string} ticketId - The unique ID that identifies the dispute you want to reject or accept
    * @arg {string} fileName - The name of the file
@@ -60,6 +60,7 @@ export default abstract class SquadDisputeResolver extends SquadWalletBalance {
   }
 
   /**
+   * This method is called to resolve a dispute.
    *
    * @param {string} ticketId - The unique ID that identifies the dispute you want to reject or accept
    * @param {string} action - The action taken for the dispute. Either "accepted" or "rejected"

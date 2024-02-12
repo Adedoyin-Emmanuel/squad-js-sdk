@@ -107,6 +107,16 @@
       - [Parameters](#parameters-26)
       - [Returns](#returns-6)
       - [Example](#example-27)
+    - [Get All Disputes Method](#get-all-disputes-method)
+      - [Parameters](#parameters-27)
+      - [Returns](#returns-7)
+      - [Example](#example-28)
+    - [Get Dispute File Upload Url Method](#get-dispute-file-upload-url-method)
+      - [Parameters](#parameters-28)
+      - [Example](#example-29)
+    - [Resolve Dispute Method](#resolve-dispute-method)
+      - [Parameters](#parameters-29)
+      - [Example](#example-30)
 
 ## Introduction 🚀
 
@@ -761,4 +771,63 @@ This method allows you get your Squad Wallet Balance. Please be informed that th
 
 ```typescript
 const response = await squad.getWalletBalance("NGN");
+```
+
+### Get All Disputes Method
+
+This method is used to get all disputes on your transactions raised by your customers.
+
+#### Parameters
+
+None
+
+#### Returns
+
+- `Promise<DisputeResponseProps>`: Details of all disputes made.
+
+#### Example
+
+```typescript
+const response = await squad.getAllDisputes();
+
+// this is an array of `Promise<DisputeResponseProps>
+```
+
+### Get Dispute File Upload Url Method
+
+This method is used to get a unique URL to upload an evidence(file) which is a proof or reason to reject a dispute. This is only necessary when we want to reject a dispute.
+
+#### Parameters
+
+- `ticketId`: (String) The unique ID that identifies the dispute you want to reject or accept.
+- `fileName`: (String) The name of the file.
+
+#### Example
+
+```typescript
+const response = await squad.resolveDisputes(
+  "Ticket123",
+  "accepted",
+  "filename1234"
+);
+```
+
+### Resolve Dispute Method
+
+This method is called to resolve a dispute. Resolving a dispute means to either accept or reject the dispute.
+
+#### Parameters
+
+- `ticketId`: (String) The unique ID that identifies the dispute you want to reject or accept.
+- `fileName`: (String) The name of the file.
+- `action`: (String) The action taken for the dispute. Either "accepted" or "rejected"
+
+#### Example
+
+```typescript
+const response = await squad.resolveDisputes(
+  "Ticket123",
+  "accepted",
+  "filename1234"
+);
 ```
