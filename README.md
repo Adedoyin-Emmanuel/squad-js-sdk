@@ -87,6 +87,21 @@
       - [Parameters](#parameters-21)
       - [Returns](#returns-1)
       - [Example](#example-22)
+    - [Account Lookup](#account-lookup)
+      - [Parameters](#parameters-22)
+      - [Returns](#returns-2)
+      - [Example](#example-23)
+    - [Transfer Funds](#transfer-funds)
+      - [Parameters](#parameters-23)
+      - [Returns](#returns-3)
+      - [Example](#example-24)
+    - [Re-query Funds Transfer](#re-query-funds-transfer)
+      - [Parameters](#parameters-24)
+      - [Returns](#returns-4)
+      - [Example](#example-25)
+    - [Get All Transfers](#get-all-transfers)
+      - [Returns](#returns-5)
+      - [Example](#example-26)
 
 ## Introduction 🚀
 
@@ -632,4 +647,91 @@ const response = await squad.updateDynamicVirtualAccountTransactionAmount(
   "TRANSACTION_REFERENCE_HERE",
   "DURATION_HERE"
 );
+```
+
+### Account Lookup
+
+This method allows you to lookup/confirm the account name of the recipient you intend to credit before initiating the transfer.
+
+#### Parameters
+
+- `bankCode` (String): The unique NIP code that identifies a bank.
+- `accountNumber` (String): The account number you want to transfer to.
+
+#### Returns
+
+- `Promise<AccountLookupResponseProps>`: Details of the account looked up.
+
+#### Example
+
+```typescript
+const response = await squad.accountLookup(
+  "BANK_CODE_HERE",
+  "ACCOUNT_NUMBER_HERE"
+);
+```
+
+### Transfer Funds
+
+This method allows you to transfer funds from your Squad Wallet to the account you have looked up. Please be informed that we will not be held liable for mistake in transferring to a wrong account or an account that wasn't looked up.
+
+#### Parameters
+
+- `transactionData` (FundsTransferRequestProps): Object containing transfer details including:
+  - `transactionReference` (String): Unique transaction reference used to initiate a transfer.
+  - `amount` (String): Amount to be transferred in Kobo.
+  - `bankCode` (String): Unique NIP code that identifies a bank.
+  - `accountNumber` (String): 10-digit NUBAN account number to be transferred to.
+  - `accountName` (String): The account name tied to the account number you are transferring to.
+  - `currencyId` (String): Takes only the value "NGN".
+  - `remark` (String): A unique remark that will be sent with the transfer.
+
+#### Returns
+
+- `Promise<FundsTransferReponseProps>`: Details of the transfer made.
+
+#### Example
+
+```typescript
+const response = await squad.transferFunds({
+  transactionReference: "TRANSACTION_REF_HERE",
+  amount: "AMOUNT_HERE",
+  bankCode: "BANK_CODE_HERE",
+  accountNumber: "ACCOUNT_NUMBER_HERE",
+  accountName: "ACCOUNT_NAME_HERE",
+  currencyId: "NGN",
+  remark: "REMARK_HERE",
+});
+```
+
+### Re-query Funds Transfer
+
+This method allows you to re-query the status of a transfer made to know if it was successful, failed, reversed, or pending.
+
+#### Parameters
+
+- `transactionReference` (String): Unique transaction reference used to initiate a transfer.
+
+#### Returns
+
+- `Promise<FundsTransferReponseProps>`: Details of the transfer status.
+
+#### Example
+
+```typescript
+const response = await squad.reQueryFundsTransfer("TRANSACTION_REFERENCE_HERE");
+```
+
+### Get All Transfers
+
+This method allows you to retrieve the details of all transfers you have done from your Squad Wallet using this transfer solution.
+
+#### Returns
+
+- `Promise<AllTransferResponseProps>`: Details of all transfers made.
+
+#### Example
+
+```typescript
+const response = await squad.getAllTransfers();
 ```
