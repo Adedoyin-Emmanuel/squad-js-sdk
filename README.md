@@ -83,6 +83,10 @@
       - [Parameters](#parameters-20)
       - [Returns](#returns)
       - [Example](#example-21)
+    - [Update Dynamic Virtual Account Transaction Amount Method](#update-dynamic-virtual-account-transaction-amount-method)
+      - [Parameters](#parameters-21)
+      - [Returns](#returns-1)
+      - [Example](#example-22)
 
 ## Introduction 🚀
 
@@ -603,5 +607,29 @@ This method allows you to re-query a transaction to see its status. It returns a
 ```typescript
 const response = await squad.reQueryDynamicVirtualAccountTransaction(
   "TRANSACTION_REFERENCE_HERE"
+);
+```
+
+### Update Dynamic Virtual Account Transaction Amount Method
+
+This method allows you to update the amount and duration of a dynamic virtual account transaction.
+
+#### Parameters
+
+- `amount` (String): Amount in Kobo.
+- `transactionReference` (String): Transaction reference of the already initiated transaction.
+- `duration` (Number): Amount of time before the transaction expires. Duration is in seconds (e.g., 60 = 1 minute).
+
+#### Returns
+
+- `Promise<BaseResponseProps>`: A response indicating the success or failure of the update operation.
+
+#### Example
+
+```typescript
+const response = await squad.updateDynamicVirtualAccountTransactionAmount(
+  "NEW_AMOUNT_HERE",
+  "TRANSACTION_REFERENCE_HERE",
+  "DURATION_HERE"
 );
 ```
