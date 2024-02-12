@@ -87,21 +87,26 @@
       - [Parameters](#parameters-21)
       - [Returns](#returns-1)
       - [Example](#example-22)
-    - [Account Lookup](#account-lookup)
+    - [Account Lookup Method](#account-lookup-method)
       - [Parameters](#parameters-22)
       - [Returns](#returns-2)
       - [Example](#example-23)
-    - [Transfer Funds](#transfer-funds)
+    - [Transfer Funds Method](#transfer-funds-method)
       - [Parameters](#parameters-23)
       - [Returns](#returns-3)
       - [Example](#example-24)
-    - [Re-query Funds Transfer](#re-query-funds-transfer)
+    - [Re-query Funds Transfer Method](#re-query-funds-transfer-method)
       - [Parameters](#parameters-24)
       - [Returns](#returns-4)
       - [Example](#example-25)
-    - [Get All Transfers](#get-all-transfers)
+    - [Get All Transfers Method](#get-all-transfers-method)
+      - [Parameters](#parameters-25)
       - [Returns](#returns-5)
       - [Example](#example-26)
+    - [Get Wallet Balance Method](#get-wallet-balance-method)
+      - [Parameters](#parameters-26)
+      - [Returns](#returns-6)
+      - [Example](#example-27)
 
 ## Introduction 🚀
 
@@ -649,7 +654,7 @@ const response = await squad.updateDynamicVirtualAccountTransactionAmount(
 );
 ```
 
-### Account Lookup
+### Account Lookup Method
 
 This method allows you to lookup/confirm the account name of the recipient you intend to credit before initiating the transfer.
 
@@ -671,7 +676,7 @@ const response = await squad.accountLookup(
 );
 ```
 
-### Transfer Funds
+### Transfer Funds Method
 
 This method allows you to transfer funds from your Squad Wallet to the account you have looked up. Please be informed that we will not be held liable for mistake in transferring to a wrong account or an account that wasn't looked up.
 
@@ -704,7 +709,7 @@ const response = await squad.transferFunds({
 });
 ```
 
-### Re-query Funds Transfer
+### Re-query Funds Transfer Method
 
 This method allows you to re-query the status of a transfer made to know if it was successful, failed, reversed, or pending.
 
@@ -722,9 +727,13 @@ This method allows you to re-query the status of a transfer made to know if it w
 const response = await squad.reQueryFundsTransfer("TRANSACTION_REFERENCE_HERE");
 ```
 
-### Get All Transfers
+### Get All Transfers Method
 
 This method allows you to retrieve the details of all transfers you have done from your Squad Wallet using this transfer solution.
+
+#### Parameters
+
+None
 
 #### Returns
 
@@ -734,4 +743,22 @@ This method allows you to retrieve the details of all transfers you have done fr
 
 ```typescript
 const response = await squad.getAllTransfers();
+```
+
+### Get Wallet Balance Method
+
+This method allows you get your Squad Wallet Balance. Please be informed that the wallet balance is in KOBO. (Please note that you can't get wallet balance for Dollar transactions).
+
+#### Parameters
+
+- `currencyId`: (String) - The currency identifier.This can only of value `NGN` for now.
+
+#### Returns
+
+- `Promise<WalletBalanceResponseProps>` - The details of the wallet balance.
+
+#### Example
+
+```typescript
+const response = await squad.getWalletBalance("NGN");
 ```

@@ -24,7 +24,7 @@ export default abstract class SquadWalletBalance extends SquadTransfer {
    * @desc This method allows you get your Squad Wallet Balance.
    * Please be informed that the wallet balance is in KOBO.
    * (Please note that you can't get wallet balance for Dollar transactions)
-   * @param currencyId -
+   * @param {String} currencyId  -  The currency Id. This supports only NGN -> Naria
    */
   public async getWalletBalance(
     currencyId: string = "NGN"
