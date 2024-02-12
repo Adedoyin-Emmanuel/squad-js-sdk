@@ -21,7 +21,7 @@ export default abstract class SquadPOS extends SquadDisputeResolver {
     this.basePosUrl = "/softpos";
   }
   /**
-   *
+   * This method gets all the transactions made on the POS
    * @param {number} page - The page number
    * @param {number} perPage - The number of transactions per page
    * @param {string} dateFrom - Format YYYY-MM-DD startDate

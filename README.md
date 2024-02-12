@@ -117,6 +117,10 @@
     - [Resolve Dispute Method](#resolve-dispute-method)
       - [Parameters](#parameters-29)
       - [Example](#example-30)
+    - [Get All POS Transactions](#get-all-pos-transactions)
+      - [Parameters](#parameters-30)
+      - [Returns](#returns-8)
+      - [Example](#example-31)
 
 ## Introduction 🚀
 
@@ -829,5 +833,33 @@ const response = await squad.resolveDisputes(
   "Ticket123",
   "accepted",
   "filename1234"
+);
+```
+
+### Get All POS Transactions
+
+This method retrieves all transactions made on the POS.
+
+#### Parameters
+
+- `page` (Number): The page number.
+- `perPage` (Number): The number of transactions per page.
+- `dateFrom` (String, optional): Format YYYY-MM-DD start date.
+- `dateTo` (String, optional): Format YYYY-MM-DD end date.
+- `sort_by_dir` (String, optional): This arranges transactions in ascending or descending order. Possible values are "ASC" or "DESC".
+
+#### Returns
+
+- `Promise<PosInterfaceResponseProps>`: Details of all POS transactions.
+
+#### Example
+
+```typescript
+const response = await squad.getAllPosTransactions(
+  1,
+  10,
+  "START_DATE_HERE",
+  "END_DATE_HERE",
+  "ASC_OR_DESC_HERE"
 );
 ```
