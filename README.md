@@ -79,6 +79,10 @@
     - [Initiate Dynamic Virtual Account Transaction Method](#initiate-dynamic-virtual-account-transaction-method)
       - [Parameters](#parameters-19)
       - [Example](#example-20)
+    - [Re-query Dynamic Virtual Account Transaction Method](#re-query-dynamic-virtual-account-transaction-method)
+      - [Parameters](#parameters-20)
+      - [Returns](#returns)
+      - [Example](#example-21)
 
 ## Introduction 🚀
 
@@ -579,5 +583,25 @@ const response = await squad.initiateDynamicVirtualAccountTransaction(
   60,
   "adedoyine535@gmail.com",
   `TRANS_${Math.random() * 200 + 1}`
+);
+```
+
+### Re-query Dynamic Virtual Account Transaction Method
+
+This method allows you to re-query a transaction to see its status. It returns an array of all transaction attempts made, including mismatches, expired attempts, and the successful transaction. Ultimately, all expired and mismatched transactions will eventually be refunded.
+
+#### Parameters
+
+- `transactionRef` (String): Merchant's transaction reference passed when initiating/generating the dynamic virtual account.
+
+#### Returns
+
+- `Promise<ReQueryDynamicVirtualAccountResponseProps>`: An array of all transaction attempts made, including mismatches, expired attempts, and the successful transaction.
+
+#### Example
+
+```typescript
+const response = await squad.reQueryDynamicVirtualAccountTransaction(
+  "TRANSACTION_REFERENCE_HERE"
 );
 ```
