@@ -14,8 +14,10 @@
 - [Table Of Content](#table-of-content)
   - [Introduction 🚀](#introduction-)
     - [Why Did I Build This? 🤔](#why-did-i-build-this-)
+    - [Squad Js SDK Features 🚀](#squad-js-sdk-features-)
   - [Installation 💽](#installation-)
   - [Usage 🚦](#usage-)
+    - [SDK Typed Response](#sdk-typed-response)
     - [Initiate Payment Method](#initiate-payment-method)
       - [Parameters](#parameters)
       - [Example](#example)
@@ -128,7 +130,29 @@ Simplify the integration process with Squad's comprehensive payment solutions us
 
 ### Why Did I Build This? 🤔
 
-Okay, good question. While this **SDK** is a game changer for anyone working with **Squad Payment Gateway** in their application. The features of this **SDK** can be found here. [SDK Features](https://github.com/adedoyin-emmanuel/squad-js-sdk/). I also built this **SDK** as a point of contact to the **SquadCo Team** I haven't seen a company that I'm soo intrested in working that than **Squad**. I really love what they're building and I would love to be part of the team. After the hackathon, I fell in love with their product and I've been preaching the gosple of their product in every possible way.
+Okay, good question. While this **SDK** is a game changer for anyone working with **Squad Payment Gateway** in their application. The features of this **SDK** can be found here. [SDK Features](https://github.com/adedoyin-emmanuel/squad-js-sdk/). I also built this **SDK** as a point of contact to the **SquadCo Team**. I haven't seen a company that I'm soo intrested in working that than **Squad**. I really love what they're building and I would love to be part of the team. After the hackathon, I fell in love with their product and I've been preaching the gosple of their product in every possible way.
+
+### Squad Js SDK Features 🚀
+
+Why should you use the **Squad JS SDK** 🤔 ?
+
+- **Effortless Integration:** The Squad Js SDK streamlines the integration process, allowing users to interact with SquadCo Payment APIs seamlessly.
+
+- **Accelerated Development:** With simplified methods and enhanced autocompletion, developers can ship their products faster, reducing time-to-market.
+
+- **Minimal API Interaction:** Users can achieve robust payment functionalities without directly interacting with the Squad Payment APIs, making development more straightforward.
+
+- **Typed Responses:** The Squad Js SDK provides automatic type definitions for API responses, ensuring robust and error-free code. Now, responses are effortlessly typed, offering developers a more structured development experience.
+
+- **TypeScript / JavaScript Autocompletion:** Leverage TypeScript / JavaScript autocompletion for a smoother development process. The SDK seamlessly integrates with TypeScript, enhancing developer productivity by providing accurate suggestions and reducing errors. This also works with JavaScript.
+
+- **Comprehensive JSDoc Support:** Enjoy thorough JSDoc support that enhances code documentation. Developers can benefit from descriptive and comprehensive information right at their fingertips, making it easier to understand and utilize the SDK's capabilities.
+
+- **Efficient Error Handling:** The SDK facilitates efficient error handling, providing detailed information for better debugging. Developers can easily identify and resolve issues, ensuring a more reliable integration.
+
+- **Intuitive Webhook Management:** Manage webhook transactions effortlessly. The SDK introduces clear methods for retrieving and deleting webhook error logs, ensuring a smooth and error-free webhook integration.
+
+These enhancements aim to provide developers with a more powerful, flexible, and enjoyable experience when integrating [SquadCo Payment APIs](https://squadco.com) into their applications.
 
 ## Installation 💽
 
@@ -178,6 +202,49 @@ const squad = new CreateSquadClient(
   process.env.SQUAD_PRIVATE_KEY as string,
   process.env.NODE_ENV as string
 );
+```
+
+### SDK Typed Response
+
+The **SDK** provides **typed responses** for every method call. There is always a base response object for every method call. With this, you can determine the status of each method call, the response type (success or fail)
+and the response message, just like a traditional **API** call. This is useful so that you can catch errors easily and also know the status of each method call so you can tailor your application to respond accordingly.
+
+```typescript
+export interface BaseResponseProps {
+  status: number;
+  success: boolean;
+  message: string;
+  data?: {};
+}
+```
+
+So from every method call, I can determine the method status, if it successful, the message and the data returned from the method.
+
+Assuming that we want to initiate a payment, once we call the `initiatePayment` method, we can get the `typed response` directly from the variable the method call was assigned to. We can then redirect the user to the payment page is the method returns a success response.
+
+```typescript
+
+const response = await squad.initiatePayment({
+  amount: 20000,
+  email: "adedoyine535@gmail.com",
+  initiateType: "inline",
+  currency: "NGN",
+  customerName: "Adedoyin Emmanuel Adeniyi",
+  callbackUrl: "https://github.com/adedoyin-emmanuel",
+}, tokenizeCard: false);
+
+// check if the response was successful, if not, return a response to the client.
+
+if(!response.success)
+  return res.status(response.status).json({message:response.message});
+
+// Response was successful, I can now get the checkout_url
+
+const checkoutUrl = response.data.checkout_url;
+
+// redirect the client to the checkout_url
+
+res.redirect(checkoutUrl); // assuming you are using express JS
 ```
 
 ### Initiate Payment Method
