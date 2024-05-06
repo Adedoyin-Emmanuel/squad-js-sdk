@@ -82,7 +82,7 @@ export interface VerifyTransactionResponseProps extends BaseResponseProps {
 
 export interface PaymentLinkProps {
   name: string;
-  hash: string;
+  hash?: string;
   linkStatus: 0 | 1;
   expireBy: string;
   amount: number;

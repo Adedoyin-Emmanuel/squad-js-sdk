@@ -202,7 +202,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
 
       return squadResponse.data;
     } catch (error: any) {
-      console.warn(error?.response?.data?.message);
+      console.warn(error?.message);
       return error?.response?.data;
     }
   }
