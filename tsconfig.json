@@ -7,10 +7,7 @@
 
     "outDir": "./dist",
     "rootDir": "./",
-
-    /* Bundler mode */
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    
 
     /* Linting */
     "skipLibCheck": true,
