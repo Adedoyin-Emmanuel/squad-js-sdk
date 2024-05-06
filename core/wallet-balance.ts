@@ -40,7 +40,7 @@ export default abstract class SquadWalletBalance extends SquadTransfer {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 }

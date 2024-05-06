@@ -55,7 +55,7 @@ export default abstract class SquadSubMerchant extends SquadPayment {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 }

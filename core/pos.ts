@@ -67,7 +67,7 @@ export default abstract class SquadPOS extends SquadDisputeResolver {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 }

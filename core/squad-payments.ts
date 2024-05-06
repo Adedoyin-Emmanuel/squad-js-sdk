@@ -87,7 +87,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 
@@ -121,7 +121,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 
@@ -144,7 +144,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 
@@ -203,7 +203,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 
@@ -256,7 +256,7 @@ export default abstract class SquadPayment extends SquadBaseClient {
       return squadResponse.data;
     } catch (error: any) {
       console.warn(error?.response?.data?.message);
-      return error.response.data;
+      return error?.response?.data;
     }
   }
 }
